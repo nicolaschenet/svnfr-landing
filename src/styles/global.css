@@ -14,10 +14,15 @@
 @layer base {
     html {
         scroll-behavior: smooth;
+        height: 100%;
+            overflow-x: hidden;
     }
 
     body {
         @apply bg-dark text-primary font-mono;
+        height: 100%;
+            position: relative;
+            overflow-x: hidden;
     }
 
     /* Typography */
@@ -37,6 +42,10 @@
             url('/assets/glitch-header.png');
         background-size: cover;
         background-position: 65% center;
+        background-attachment: fixed;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            will-change: transform;
     }
 
     /* Particles container */
@@ -275,7 +284,7 @@
         position: relative;
             overflow: hidden;
         }
-        
+
         .button::before {
             content: '';
             position: absolute;
@@ -293,15 +302,15 @@
         box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25), 0 0 15px rgba(255, 42, 212, 0.15);
             transform: translateY(-2px);
         }
-        
+
         .button:hover::before {
             left: 100%;
         }
-        
+
         .button i {
             @apply mr-2 text-lg transition-transform duration-300;
         }
-        
+
         .button:hover i {
             transform: scale(1.1);
     }
@@ -619,20 +628,20 @@
         @apply py-3 px-6;
             min-height: 48px;
         }
-        
+
         .button i {
             @apply mr-3;
         }
-        
+
         .button::before {
             display: none;
         }
-        
+
         .button:hover {
             transform: translateY(-1px);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25), 0 0 10px rgba(255, 42, 212, 0.15);
         }
-        
+
         .release-links {
             @apply gap-4;
     }
@@ -741,3 +750,21 @@ body.menu-open {
     }
 }
 
+/* Mobile styles - fix for Chrome background zoom issue */
+@media screen and (max-width: 768px) {
+
+    html,
+    body {
+        height: -webkit-fill-available;
+    }
+
+    .hero {
+        background-attachment: scroll;
+        height: 100vh;
+        /* Use vh instead of h-screen */
+        height: calc(var(--vh, 1vh) * 100);
+        min-height: -webkit-fill-available;
+    }
+}
+
+/* Add a script to handle vh units properly */
