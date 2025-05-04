@@ -1,7 +1,7 @@
 ---
 // Music Section component
 import { Image } from "astro:assets";
-import kingOfNothingCoverArt from "../images/king-of-nothing-cover-art.jpg";
+import kingOfNothingCoverArt from "../images/king-of-nothing-cover-art.png";
 ---
 
 <section id="music" class="section">
@@ -14,7 +14,7 @@ import kingOfNothingCoverArt from "../images/king-of-nothing-cover-art.jpg";
       collapse rendered in slow synthwave. Glitchy textures, haunted melodies,
       and aching loops. A love letter delivered after the end of the world.
     </p>
-    <div class="bandcamp-container">
+    <div class="album-container">
       <a
         href="https://svnfr.bandcamp.com/album/king-of-nothing-ep"
         target="_blank"
@@ -25,6 +25,7 @@ import kingOfNothingCoverArt from "../images/king-of-nothing-cover-art.jpg";
           alt="King Of Nothing EP by SVNFR"
           width={300}
           height={300}
+          densities={[1, 2]}
         />
         <div class="play-overlay">
           <i class="fa-solid fa-play"></i>
