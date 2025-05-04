@@ -544,9 +544,13 @@
         @apply hidden;
     }
 
-    /* Adjust hero button for mobile */
-    .hero-button span {
-        @apply text-[0.9rem];
+        /* Hero CTA and button improvements */
+        .hero-cta {
+            @apply mt-6 mb-6 flex justify-start;
+        }
+
+        .hero-button {
+            @apply text-[0.9rem] py-3 px-6;
     }
 
     /* Adjust particles for mobile */
@@ -555,7 +559,7 @@
     }
 
     .hero-content {
-        @apply pt-40;
+        @apply pt-32;
     }
 }
 
@@ -615,6 +619,47 @@
     }
 }
 
+/* Remove the problematic iOS-specific styles and simplify */
+@media screen and (max-width: 430px) and (min-height: 800px) {
+
+    /* Add some bottom padding for iOS devices */
+    .hero {
+        padding-bottom: 5rem;
+    }
+}
+/* iPhone specific fixes */
+@media screen and (min-device-width: 375px) and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 2) {
+    .hero-button {
+        @apply py-3 px-7;
+        border-radius: 4px;
+    }
+
+        .release-date {
+            @apply mt-4 mb-8;
+        }
+        }
+
+/* Simplify the safe area handling */
+@supports (padding: max(0px)) {
+    .top-nav {
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+    }
+
+    body {
+        padding-bottom: env(safe-area-inset-bottom, 0);
+    }
+
+    /* Additional safe area padding for buttons */
+    .hero-button {
+        padding-bottom: max(0.75rem, calc(0.75rem + env(safe-area-inset-bottom) / 4));
+    }
+
+    .hero {
+        padding-bottom: max(4rem, calc(4rem + env(safe-area-inset-bottom) / 2));
+    }
+}
+
 @media (min-width: 769px) {
     .mobile-toggle {
         @apply hidden;
@@ -648,3 +693,4 @@ body.menu-open {
         background-position: 75% center;
     }
 }
+
