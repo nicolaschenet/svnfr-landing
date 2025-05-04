@@ -1,0 +1,650 @@
+/* Import Tailwind CSS */
+@import "tailwindcss";
+
+/* Theme configuration using v4.1 @theme directive */
+@theme {
+    --color-highlight: #ff2ad4;
+    --color-primary: #f0f0f0;
+    --color-dark: #111;
+    --color-nav-bg: rgba(17, 17, 17, 0.8);
+    --color-transparent: rgba(255, 0, 0, 0.7);
+}
+
+/* Base styles */
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply bg-dark text-primary font-mono;
+    }
+
+    /* Typography */
+    h1,
+    h2,
+    h3 {
+        @apply font-sans uppercase;
+    }
+}
+
+/* Component styles */
+@layer components {
+
+    /* Hero section */
+    .hero {
+        @apply h-screen relative flex flex-col justify-end p-16 overflow-hidden;
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 70%, var(--color-dark) 100%),
+            url('/assets/glitch-header.png');
+        background-size: cover;
+        background-position: 65% center;
+    }
+
+    /* Particles container */
+    .particles-container {
+        @apply absolute w-full h-full top-0 left-0 z-1 pointer-events-none opacity-80;
+        mix-blend-mode: lighten;
+    }
+
+    /* Navigation */
+    .top-nav {
+        @apply fixed top-0 left-0 w-full flex justify-between items-center p-4 z-110;
+        background-color: var(--color-nav-bg);
+        backdrop-filter: blur(8px);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .logo {
+        @apply text-2xl font-semibold tracking-wide;
+    }
+
+    .logo-link {
+        @apply text-highlight no-underline transition-colors duration-300;
+    }
+
+    .logo-link:hover {
+        text-shadow: 0 0 8px var(--color-highlight);
+    }
+
+    .nav-container {
+        @apply flex items-center gap-8;
+    }
+
+    .nav-links,
+    .social-links {
+        @apply list-none flex gap-6;
+    }
+
+    .nav-links a {
+        @apply text-primary no-underline text-sm font-medium uppercase tracking-wide relative transition-colors duration-300;
+    }
+
+    .nav-links a:hover {
+        @apply text-highlight;
+    }
+
+    .nav-links a::after {
+        content: '';
+        @apply absolute w-0 h-0.5 bottom-[-4px] left-0 transition-all duration-300;
+        background-color: var(--color-highlight);
+    }
+
+    .nav-links a:hover::after {
+        @apply w-full;
+    }
+
+    .social-links a {
+        @apply text-primary text-xl transition-all duration-300 opacity-70;
+    }
+
+    .social-links a:hover {
+        @apply text-highlight opacity-100 -translate-y-1;
+        filter: drop-shadow(0 0 4px var(--color-highlight));
+    }
+
+    /* Mobile menu toggle */
+    .mobile-toggle {
+        @apply hidden bg-transparent border-0 text-white/80 text-xl cursor-pointer transition-colors duration-300 p-1 z-1000 outline-none;
+    }
+
+    .mobile-toggle i {
+        @apply transition-transform duration-300 ease-in-out;
+    }
+
+    .mobile-toggle:hover {
+        @apply text-white;
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    }
+
+    .mobile-toggle:hover i {
+        @apply scale-110;
+    }
+
+    /* Hero content */
+    .hero-content {
+        @apply mb-0 max-w-[600px] z-10 relative mt-auto pt-60;
+    }
+
+    /* Glitch title */
+    .glitch-title {
+        @apply relative mb-6;
+    }
+
+    .glitch-title h1 {
+        @apply text-6xl text-white mb-3 leading-none font-light tracking-tight uppercase font-sans;
+        animation: mainTextGlitch 3s infinite, neonFlicker 5s infinite;
+        text-shadow: 0 0 2px rgba(255, 255, 255, 0.4);
+    }
+
+    /* Highlight in title */
+    .highlight {
+        @apply text-white relative inline-block font-normal;
+        animation: textGlitch 2s infinite, neonHighlightFlicker 3s infinite;
+        text-shadow: 0 0 4px rgba(255, 42, 212, 0.8), 0 0 10px rgba(255, 42, 212, 0.5);
+    }
+
+    .highlight::before,
+    .highlight::after {
+        content: "AWAKENED";
+        @apply absolute top-0 left-0 w-full h-full opacity-80 pointer-events-none;
+        mix-blend-mode: screen;
+    }
+
+    .highlight::before {
+        @apply text-transparent -z-10;
+        animation: rgbSplit 2s infinite both;
+    }
+
+    .highlight::after {
+        @apply text-transparent -z-20;
+        animation: rgbSplit 2s infinite reverse both;
+    }
+
+    /* Text content */
+    .hero-content p {
+        @apply text-lg text-white max-w-[550px] leading-relaxed mb-6 font-normal tracking-wider;
+    }
+
+    /* Mobile/desktop text variants */
+    .mobile-text {
+        @apply hidden;
+    }
+
+    /* Hero CTA */
+    .hero-cta {
+        @apply mt-8 mb-6;
+    }
+
+    .hero-button {
+        @apply inline-flex items-center gap-4 py-3.5 px-7 bg-black/60 text-white border border-white/30 rounded no-underline text-sm font-medium tracking-wide transition-all duration-300 overflow-hidden uppercase;
+    }
+
+    .hero-button:hover {
+        @apply bg-black/75 -translate-y-0.5 border-white/50;
+    }
+
+    /* Release date */
+    .release-date {
+        @apply inline-block py-3 px-6 bg-black/75 border-l-2 border-white/70 mt-4;
+    }
+
+    .date-label {
+        @apply text-xs text-white/80 tracking-wide mb-1 uppercase;
+    }
+
+    .date {
+        @apply text-2xl text-white font-medium tracking-wide;
+    }
+
+    /* Section styles */
+    .section {
+        @apply py-24 px-8 max-w-[900px] mx-auto relative z-5;
+    }
+
+    .section h2 {
+        @apply text-5xl font-semibold text-highlight mb-10 tracking-wider uppercase;
+    }
+
+    /* Featured release styling */
+    .featured-release {
+        @apply border rounded-xl p-12 mb-12 relative overflow-hidden;
+        background-color: rgba(17, 17, 17, 0.6);
+        border-color: rgba(255, 42, 212, 0.3);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 42, 212, 0.1);
+    }
+
+    .featured-release::before {
+        content: '';
+        @apply absolute top-0 left-0 w-full h-full pointer-events-none;
+        background: linear-gradient(45deg, transparent 0%, rgba(255, 42, 212, 0.05) 50%, transparent 100%);
+    }
+
+    .featured-release h3 {
+        @apply text-4xl font-semibold text-highlight mb-2 tracking-wide;
+    }
+
+    .featured-release p {
+        @apply text-[#ccc] mb-10 text-lg opacity-80;
+    }
+
+    /* Bandcamp container */
+    .bandcamp-container {
+        @apply my-10 relative overflow-hidden flex justify-center items-center;
+    }
+
+    .album-artwork {
+        @apply relative block w-[400px] h-[400px] rounded-lg overflow-hidden z-[2] transition-all duration-300;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 35px rgba(255, 42, 212, 0.25);
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+    }
+
+    .album-artwork::after {
+        content: '';
+        @apply absolute top-[-10%] left-[-10%] w-[120%] h-[120%] opacity-0 transition-opacity duration-500 pointer-events-none z-[1];
+        background: radial-gradient(circle at center, rgba(255, 42, 212, 0.15) 0%, transparent 70%);
+    }
+
+    .album-artwork img {
+        @apply w-full h-full object-cover block transition-transform duration-700 ease-in-out;
+    }
+
+    .play-overlay {
+        @apply absolute top-0 left-0 w-full h-full bg-black/40 flex justify-center items-center opacity-0 transition-opacity duration-500 z-[2];
+    }
+
+    .play-overlay i {
+        @apply text-6xl text-white/95 translate-y-2.5 transition-transform duration-300 ease-in-out;
+        text-shadow: 0 0 30px rgba(255, 42, 212, 0.9);
+    }
+
+    .album-artwork:hover {
+        @apply -translate-y-2.5 scale-[1.02];
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 40px rgba(255, 42, 212, 0.35);
+    }
+
+    .album-artwork:hover::after {
+        @apply opacity-100;
+    }
+
+    .album-artwork:hover img {
+        @apply scale-[1.08];
+    }
+
+    .album-artwork:hover .play-overlay {
+        @apply opacity-100;
+    }
+
+    .album-artwork:hover .play-overlay i {
+        @apply translate-y-0;
+    }
+
+    /* Release links */
+    .release-links {
+        @apply flex justify-center flex-wrap gap-6 mt-12;
+    }
+
+    .button {
+        @apply inline-block py-4 px-8 text-highlight no-underline rounded-full text-base font-medium tracking-wide transition-all duration-300 border min-w-[200px] text-center uppercase;
+        background-color: rgba(255, 42, 212, 0.1);
+        border-color: rgba(255, 42, 212, 0.3);
+    }
+
+    .button:hover {
+        @apply -translate-y-1;
+        background-color: rgba(255, 42, 212, 0.2);
+        box-shadow: 0 10px 25px rgba(255, 42, 212, 0.2);
+    }
+}
+
+/* Animation keyframes */
+@keyframes mainTextGlitch {
+
+    0%,
+    89%,
+    94%,
+    100% {
+        transform: none;
+        opacity: 1;
+    }
+
+    90% {
+        transform: translate(2px, 0);
+        opacity: 0.9;
+        text-shadow: -2px 0 2px rgba(255, 255, 255, 0.8);
+    }
+
+    91% {
+        transform: translate(-3px, 0);
+        opacity: 0.85;
+        text-shadow: 3px 0 2px rgba(255, 255, 255, 0.8);
+    }
+
+    92% {
+        transform: translate(1px, -1px);
+        opacity: 0.9;
+        text-shadow: -1px 0 2px rgba(255, 255, 255, 0.8);
+    }
+
+    93% {
+        transform: translate(0, 1px);
+        opacity: 0.95;
+    }
+}
+
+@keyframes neonFlicker {
+
+    0%,
+    19%,
+    21%,
+    23%,
+    25%,
+    54%,
+    56%,
+    100% {
+        text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+
+    20%,
+    22%,
+    24%,
+    55% {
+        text-shadow: none;
+        opacity: 0.8;
+    }
+
+    76%,
+    78%,
+    80% {
+        text-shadow: none;
+        opacity: 0.9;
+    }
+
+    77%,
+    79%,
+    81% {
+        text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 10px rgba(255, 255, 255, 0.8);
+        opacity: 1;
+    }
+}
+
+@keyframes neonHighlightFlicker {
+
+    0%,
+    30%,
+    32%,
+    34%,
+    36%,
+    65%,
+    67%,
+    100% {
+        text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 8px #ff2ad4, 0 0 12px #ff2ad4, 0 0 16px #ff2ad4;
+    }
+
+    31%,
+    33%,
+    35%,
+    66% {
+        text-shadow: none;
+        opacity: 0.9;
+    }
+
+    45%,
+    47%,
+    49% {
+        text-shadow: none;
+        opacity: 0.8;
+    }
+
+    46%,
+    48%,
+    50% {
+        text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 8px #ff2ad4, 0 0 12px #ff2ad4, 0 0 16px #ff2ad4;
+        opacity: 1;
+    }
+}
+
+@keyframes textGlitch {
+
+    0%,
+    70%,
+    100% {
+        transform: none;
+        opacity: 1;
+    }
+
+    72% {
+        transform: translate(4px, 0);
+        opacity: 0.85;
+    }
+
+    73% {
+        transform: translate(-3px, 0);
+        opacity: 0.8;
+    }
+
+    74% {
+        transform: translate(0, -2px);
+        opacity: 0.9;
+    }
+
+    75% {
+        transform: translate(0, 2px);
+        opacity: 0.85;
+    }
+
+    76% {
+        transform: translate(-2px, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes rgbSplit {
+
+    0%,
+    70%,
+    100% {
+        transform: none;
+        opacity: 0;
+    }
+
+    72% {
+        transform: translate(-3px, 0);
+        opacity: 0.7;
+    }
+
+    73% {
+        transform: translate(4px, 0);
+        opacity: 0.6;
+    }
+
+    75% {
+        transform: translate(-2px, 0);
+        opacity: 0.5;
+    }
+
+    76% {
+        transform: translate(1px, 0);
+        opacity: 0.3;
+    }
+
+    78% {
+        transform: none;
+        opacity: 0;
+    }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .nav-container {
+        @apply fixed top-0 right-0 w-full h-screen flex-col justify-center items-center p-8 -translate-y-full transition-transform duration-400 ease-in-out z-90;
+        background-color: rgba(17, 17, 17, 0.95);
+    }
+
+    .mobile-toggle {
+        @apply flex items-center justify-center absolute right-8 top-4;
+    }
+
+    .nav-container.active {
+        @apply translate-y-0;
+    }
+
+    .nav-links,
+    .social-links {
+        @apply flex-col w-full items-center gap-6 my-4;
+    }
+
+    .nav-links a,
+    .social-links a {
+        @apply text-xl;
+    }
+
+    .hero {
+        @apply p-8;
+        background-position: 78% center;
+    }
+
+    .glitch-title h1 {
+        @apply text-4xl tracking-tight;
+    }
+
+    .hero-content p {
+        @apply text-base;
+    }
+
+    .section h2 {
+        @apply text-4xl;
+    }
+
+    .featured-release {
+        @apply p-8;
+    }
+
+    .featured-release h3 {
+        @apply text-3xl;
+    }
+
+    .release-links {
+        @apply flex-col;
+    }
+
+    .button {
+        @apply w-full;
+    }
+
+    .album-artwork {
+        @apply w-[350px] h-[350px];
+    }
+
+    /* Show mobile text, hide desktop text */
+    .mobile-text {
+        @apply block;
+    }
+
+    .desktop-text {
+        @apply hidden;
+    }
+
+    /* Adjust hero button for mobile */
+    .hero-button span {
+        @apply text-[0.9rem];
+    }
+
+    /* Adjust particles for mobile */
+    .particles-container {
+        @apply opacity-50;
+    }
+
+    .hero-content {
+        @apply pt-40;
+    }
+}
+
+@media (max-width: 430px) {
+    .header.hero {
+        background-position: 83% center;
+    }
+
+    .section h2 {
+        @apply text-3xl;
+    }
+
+    .featured-release {
+        @apply p-6;
+    }
+
+    .featured-release h3 {
+        @apply text-2xl;
+    }
+
+    .album-artwork {
+        @apply w-[300px] h-[300px];
+    }
+
+    .glitch-title h1 {
+        @apply text-3xl tracking-normal;
+    }
+
+    .hero-content p {
+        @apply text-[0.95rem];
+    }
+
+    .hero-button {
+        @apply py-3 px-6 text-[0.85rem];
+    }
+
+    .date {
+        @apply text-xl;
+    }
+
+    .hero-button span {
+        @apply text-[0.8rem];
+    }
+
+    .hero-content {
+        @apply pt-32;
+    }
+}
+
+@media (max-width: 375px) {
+    .header.hero {
+        background-position: 87% center;
+    }
+
+    .album-artwork {
+        @apply w-[280px] h-[280px];
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-toggle {
+        @apply hidden;
+    }
+
+    .nav-container {
+        @apply flex relative transform-none bg-transparent h-auto p-0 w-auto;
+    }
+}
+
+body.menu-open {
+    @apply overflow-hidden;
+}
+
+@media (min-width: 1800px) {
+    .header.hero {
+        background-size: contain;
+        background-position: right center;
+    }
+}
+
+@media (min-width: 1440px) and (max-width: 1799px),
+(min-width: 1024px) and (max-width: 1439px) {
+    .header.hero {
+        background-position: 70% center;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1023px) {
+    .header.hero {
+        background-position: 75% center;
+    }
+}
