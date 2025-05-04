@@ -30,7 +30,6 @@
 
 /* Component styles */
 @layer components {
-
     /* Hero section */
     .hero {
         @apply h-screen relative flex flex-col justify-end p-16 overflow-hidden;
@@ -298,7 +297,6 @@
 
 /* Animation keyframes */
 @keyframes mainTextGlitch {
-
     0%,
     89%,
     94%,
@@ -332,7 +330,6 @@
 }
 
 @keyframes neonFlicker {
-
     0%,
     19%,
     21%,
@@ -368,7 +365,6 @@
 }
 
 @keyframes neonHighlightFlicker {
-
     0%,
     30%,
     32%,
@@ -404,7 +400,6 @@
 }
 
 @keyframes textGlitch {
-
     0%,
     70%,
     100% {
@@ -439,7 +434,6 @@
 }
 
 @keyframes rgbSplit {
-
     0%,
     70%,
     100% {
@@ -473,7 +467,7 @@
     }
 }
 
-/* Responsive styles */
+/* Responsive styles - General Mobile */
 @media (max-width: 768px) {
     .nav-container {
         @apply fixed top-0 right-0 w-full h-screen flex-col justify-center items-center p-8 -translate-y-full transition-transform duration-400 ease-in-out z-90;
@@ -544,9 +538,13 @@
         @apply hidden;
     }
 
-    /* Adjust hero button for mobile */
-    .hero-button span {
-        @apply text-[0.9rem];
+        /* Hero CTA and button improvements */
+        .hero-cta {
+            @apply mt-6 mb-6 flex justify-start;
+        }
+
+        .hero-button {
+            @apply text-[0.9rem] py-3 px-6;
     }
 
     /* Adjust particles for mobile */
@@ -555,10 +553,11 @@
     }
 
     .hero-content {
-        @apply pt-40;
+        @apply pt-32;
     }
 }
 
+/* Small Mobile Devices */
 @media (max-width: 430px) {
     .header.hero {
         background-position: 83% center;
@@ -605,6 +604,7 @@
     }
 }
 
+/* Extra Small Mobile Devices */
 @media (max-width: 375px) {
     .header.hero {
         background-position: 87% center;
@@ -615,6 +615,48 @@
     }
 }
 
+/* iOS-specific tall screens */
+@media screen and (max-width: 430px) and (min-height: 800px) {
+    /* Add some bottom padding for iOS devices */
+    .hero {
+        padding-bottom: 5rem;
+    }
+}
+
+/* iPhone specific fixes */
+@media screen and (min-device-width: 375px) and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 2) {
+    .hero-button {
+        @apply py-3 px-7;
+        border-radius: 4px;
+    }
+
+        .release-date {
+            @apply mt-4 mb-8;
+        }
+        }
+
+/* Safe area insets support */
+@supports (padding: max(0px)) {
+    .top-nav {
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+    }
+
+    body {
+        padding-bottom: env(safe-area-inset-bottom, 0);
+    }
+
+    /* Additional safe area padding for buttons */
+    .hero-button {
+        padding-bottom: max(0.75rem, calc(0.75rem + env(safe-area-inset-bottom) / 4));
+    }
+
+    .hero {
+        padding-bottom: max(4rem, calc(4rem + env(safe-area-inset-bottom) / 2));
+    }
+}
+
+/* Desktop Navigation */
 @media (min-width: 769px) {
     .mobile-toggle {
         @apply hidden;
@@ -625,10 +667,12 @@
     }
 }
 
+/* Menu open state */
 body.menu-open {
     @apply overflow-hidden;
 }
 
+/* Large Desktop */
 @media (min-width: 1800px) {
     .header.hero {
         background-size: contain;
@@ -636,6 +680,7 @@ body.menu-open {
     }
 }
 
+/* Medium to Large Desktop */
 @media (min-width: 1440px) and (max-width: 1799px),
 (min-width: 1024px) and (max-width: 1439px) {
     .header.hero {
@@ -643,8 +688,10 @@ body.menu-open {
     }
 }
 
+/* Small Desktop / Large Tablet */
 @media (min-width: 769px) and (max-width: 1023px) {
     .header.hero {
         background-position: 75% center;
     }
 }
+
