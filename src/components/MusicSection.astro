@@ -1,5 +1,7 @@
 ---
 // Music Section component
+import { Image } from "astro:assets";
+import kingOfNothingCoverArt from "../images/king-of-nothing-cover-art.png";
 ---
 
 <section id="music" class="section">
@@ -8,23 +10,41 @@
     <h3>King of Nothing — EP</h3>
     <p><strong>Release date:</strong> May 5th, 2025</p>
     <p>
-      "King of Nothing" is the emotional core of SINGVLARITY — a cinematic collapse rendered in slow synthwave.
-      Glitchy textures, haunted melodies, and aching loops. A love letter delivered after the end of the
-      world.
+      "King of Nothing" is the emotional core of SINGVLARITY — a cinematic
+      collapse rendered in slow synthwave. Glitchy textures, haunted melodies,
+      and aching loops. A love letter delivered after the end of the world.
     </p>
-    <div class="bandcamp-container">
-      <a href="https://svnfr.bandcamp.com/album/king-of-nothing-ep" target="_blank" class="album-artwork">
-        <img src="/assets/king-of-nothing-cover-art.jpg" alt="King Of Nothing EP by SVNFR">
+    <div class="album-container">
+      <a
+        href="https://svnfr.bandcamp.com/album/king-of-nothing-ep"
+        target="_blank"
+        class="album-artwork"
+      >
+        <Image
+          src={kingOfNothingCoverArt}
+          alt="King Of Nothing EP by SVNFR"
+          width={300}
+          height={300}
+          densities={[1, 2]}
+        />
         <div class="play-overlay">
           <i class="fa-solid fa-play"></i>
         </div>
       </a>
     </div>
     <div class="release-links">
-      <a href="https://distrokid.com/hyperfollow/svnfr/king-of-nothing-ep" target="_blank" class="button">
+      <a
+        href="https://distrokid.com/hyperfollow/svnfr/king-of-nothing-ep"
+        target="_blank"
+        class="button"
+      >
         <i class="fa-brands fa-spotify"></i> Pre-save
       </a>
-      <a href="https://svnfr.bandcamp.com/album/king-of-nothing-ep" target="_blank" class="button">
+      <a
+        href="https://svnfr.bandcamp.com/album/king-of-nothing-ep"
+        target="_blank"
+        class="button"
+      >
         <i class="fa-brands fa-bandcamp"></i> Pre-order
       </a>
     </div>
