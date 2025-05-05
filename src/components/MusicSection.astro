@@ -14,102 +14,94 @@ import { featuredRelease } from "../data/releases.js";
       </strong>
       {featuredRelease.releaseDate}
     </p>
+
+    {
+      featuredRelease.released && (
+        <div class="flex gap-4 mb-6">
+          <a
+            href={featuredRelease.links.spotify}
+            target="_blank"
+            class="flex items-center justify-center w-10 h-10 rounded-full bg-white/[0.09] text-white text-xl transition-all duration-200 ease-in-out hover:bg-white/[0.15] hover:-translate-y-1"
+            aria-label="Listen on Spotify"
+          >
+            <i class="fa-brands fa-spotify" />
+          </a>
+          <a
+            href={featuredRelease.links.appleMusic}
+            target="_blank"
+            class="flex items-center justify-center w-10 h-10 rounded-full bg-white/[0.09] text-white text-xl transition-all duration-200 ease-in-out hover:bg-white/[0.15] hover:-translate-y-1"
+            aria-label="Listen on Apple Music"
+          >
+            <i class="fa-brands fa-apple" />
+          </a>
+          <a
+            href={featuredRelease.links.bandcamp}
+            target="_blank"
+            class="flex items-center justify-center w-10 h-10 rounded-full bg-white/[0.09] text-white text-xl transition-all duration-200 ease-in-out hover:bg-white/[0.15] hover:-translate-y-1"
+            aria-label="Buy on Bandcamp"
+          >
+            <i class="fa-brands fa-bandcamp" />
+          </a>
+          <a
+            href={featuredRelease.links.hyperfollow}
+            target="_blank"
+            class="flex items-center justify-center w-10 h-10 rounded-full bg-white/[0.09] text-white text-xl transition-all duration-200 ease-in-out hover:bg-white/[0.15] hover:-translate-y-1"
+          >
+            <i class="fa-solid fa-headphones" />
+          </a>
+        </div>
+      )
+    }
+
     <p>
       {featuredRelease.description}
     </p>
-    <div class="album-container">
-      <a
-        href={featuredRelease.links.hyperfollow}
-        target="_blank"
-        class="album-artwork"
-      >
-        <Image
-          src={featuredRelease.coverArt}
-          alt={featuredRelease.title + " by SVNFR"}
-          width={300}
-          height={300}
-          densities={[1, 2]}
-        />
-        <div class="play-overlay">
-          <i class="fa-solid fa-play"></i>
+
+    {
+      featuredRelease.released && featuredRelease.links.spotify && (
+        <div class="spotify-embed mt-8 mb-8">
+          <iframe
+            style="border-radius:12px"
+            src={`https://open.spotify.com/embed/album/${featuredRelease.links.spotify.split("/album/")[1].split("?")[0]}`}
+            width="100%"
+            height="352"
+            allowfullscreen=""
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+          />
         </div>
-      </a>
-    </div>
+      )
+    }
 
-    <div class="mt-16 text-center">
-      {
-        featuredRelease.released ? (
-          <>
-            <h4 class="text-white/70 tracking-[2px] uppercase text-md mb-8">
-              Available On
-            </h4>
+    {
+      !featuredRelease.released && (
+        <div class="mt-16 text-center">
+          <h4 class="text-white/70 tracking-[2px] uppercase text-xs mb-8">
+            GET NOTIFIED ON RELEASE
+          </h4>
+          <div class="flex justify-center gap-8 flex-wrap">
+            <a
+              href={featuredRelease.links.hyperfollow}
+              target="_blank"
+              class="inline-flex items-center justify-center py-3 px-6 bg-black/60 text-white border rounded no-underline text-sm font-medium tracking-wide transition-all duration-300 overflow-hidden uppercase mb-4 bg-gradient-to-br from-purple-900/50 to-purple-800/30 border-purple-500/30 hover:bg-black/75 hover:-translate-y-0.5  hover:from-purple-900/60 hover:to-purple-800/40 hover:border-purple-500/40"
+            >
+              <i class="fa-solid fa-headphones mr-2" />
+              Pre-save on All Platforms
+            </a>
 
-            <div class="flex justify-center gap-10 mb-12">
-              <a
-                href={featuredRelease.links.spotify}
-                target="_blank"
-                class="flex items-center justify-center w-12 h-12 rounded-full bg-white/[0.09] text-white text-2xl transition-all duration-200 ease-in-out hover:bg-white/[0.15] hover:-translate-y-1"
-                aria-label="Listen on Spotify"
-              >
-                <i class="fa-brands fa-spotify" />
-              </a>
-              <a
-                href={featuredRelease.links.appleMusic}
-                target="_blank"
-                class="flex items-center justify-center w-12 h-12 rounded-full bg-white/[0.09] text-white text-2xl transition-all duration-200 ease-in-out hover:bg-white/[0.15] hover:-translate-y-1"
-                aria-label="Listen on Apple Music"
-              >
-                <i class="fa-brands fa-apple" />
-              </a>
+            {featuredRelease.links.bandcamp && (
               <a
                 href={featuredRelease.links.bandcamp}
                 target="_blank"
-                class="flex items-center justify-center w-12 h-12 rounded-full bg-white/[0.09] text-white text-2xl transition-all duration-200 ease-in-out hover:bg-white/[0.15] hover:-translate-y-1"
-                aria-label="Buy on Bandcamp"
+                class="inline-flex items-center justify-center py-3 px-6 bg-black/60 text-white border  rounded no-underline text-sm font-medium tracking-wide transition-all duration-300 overflow-hidden uppercase mb-4 bg-gradient-to-br from-teal-900/50 to-teal-800/30 border-teal-500/30 hover:bg-black/75 hover:-translate-y-0.5  hover:from-teal-900/60 hover:to-teal-800/40 hover:border-teal-500/40"
               >
-                <i class="fa-brands fa-bandcamp" />
+                <i class="fa-brands fa-bandcamp mr-2" />
+                Pre-order on Bandcamp
               </a>
-            </div>
-            <div class="inline-flex items-center justify-center gap-1.5 text-[0.7rem] text-white/55 px-4 py-1.5 tracking-wider lowercase font-mono transition-colors duration-200 hover:text-white/80 rounded-full bg-white/[0.05] hover:bg-white/[0.07]">
-              <a
-                href={featuredRelease.links.hyperfollow}
-                target="_blank"
-                class="flex items-center"
-              >
-                <i class="fa-solid fa-headphones text-[0.7rem] mr-1.5" />
-                more platforms
-              </a>
-            </div>
-          </>
-        ) : (
-          <>
-            <h4 class="text-white/70 tracking-[2px] uppercase text-xs mb-8">
-              GET NOTIFIED ON RELEASE
-            </h4>
-            <div class="flex justify-center gap-8 flex-wrap">
-              <a
-                href={featuredRelease.links.hyperfollow}
-                target="_blank"
-                class="inline-flex items-center justify-center py-3 px-6 bg-black/60 text-white border rounded no-underline text-sm font-medium tracking-wide transition-all duration-300 overflow-hidden uppercase mb-4 bg-gradient-to-br from-purple-900/50 to-purple-800/30 border-purple-500/30 hover:bg-black/75 hover:-translate-y-0.5  hover:from-purple-900/60 hover:to-purple-800/40 hover:border-purple-500/40"
-              >
-                <i class="fa-solid fa-headphones mr-2" />
-                Pre-save on All Platforms
-              </a>
-
-              {featuredRelease.links.bandcamp && (
-                <a
-                  href={featuredRelease.links.bandcamp}
-                  target="_blank"
-                  class="inline-flex items-center justify-center py-3 px-6 bg-black/60 text-white border  rounded no-underline text-sm font-medium tracking-wide transition-all duration-300 overflow-hidden uppercase mb-4 bg-gradient-to-br from-teal-900/50 to-teal-800/30 border-teal-500/30 hover:bg-black/75 hover:-translate-y-0.5  hover:from-teal-900/60 hover:to-teal-800/40 hover:border-teal-500/40"
-                >
-                  <i class="fa-brands fa-bandcamp mr-2" />
-                  Pre-order on Bandcamp
-                </a>
-              )}
-            </div>
-          </>
-        )
-      }
-    </div>
+            )}
+          </div>
+        </div>
+      )
+    }
   </div>
 </section>
