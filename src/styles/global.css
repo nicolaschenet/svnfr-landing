@@ -223,7 +223,7 @@
     }
 
     .featured-release p {
-        @apply text-[#ccc] mb-10 text-lg opacity-80;
+        @apply text-[#ccc] mb-4 text-lg opacity-80;
     }
 
         /* Album container */
