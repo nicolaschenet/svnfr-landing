@@ -5,7 +5,7 @@ export const releases = {
   kingOfNothing: {
     title: "King of Nothing — EP",
     releaseDate: "May 5th, 2025",
-    released: true,
+    released: false,
     description:
       '"King of Nothing" is the emotional core of SINGVLARITY — a cinematic collapse rendered in slow synthwave. Glitchy textures, haunted melodies, and aching loops. A love letter delivered after the end of the world.',
     coverArt: kingOfNothingCoverArt,
