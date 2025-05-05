@@ -1,34 +1,19 @@
 ---
 // Music Section component
 import { Image } from "astro:assets";
-import kingOfNothingCoverArt from "../images/king-of-nothing-cover-art.png";
-
-// Music releases data
-const releases = {
-  kingOfNothing: {
-    title: "King of Nothing — EP",
-    releaseDate: "May 5th, 2025",
-    description:
-      '"King of Nothing" is the emotional core of SINGVLARITY — a cinematic collapse rendered in slow synthwave. Glitchy textures, haunted melodies, and aching loops. A love letter delivered after the end of the world.',
-    coverArt: kingOfNothingCoverArt,
-    links: {
-      hyperfollow: "https://distrokid.com/hyperfollow/svnfr/king-of-nothing-ep",
-      spotify: "https://open.spotify.com/album/YOUR_SPOTIFY_ALBUM_ID",
-      appleMusic: "https://music.apple.com/album/YOUR_APPLE_MUSIC_ALBUM_ID",
-      bandcamp: "https://svnfr.bandcamp.com/album/king-of-nothing-ep",
-    },
-  },
-};
-
-// Current featured release
-const featuredRelease = releases.kingOfNothing;
+import { featuredRelease } from "../data/releases.js";
 ---
 
 <section id="music" class="section">
   <h2>Music</h2>
   <div class="featured-release">
     <h3>{featuredRelease.title}</h3>
-    <p><strong>Release date:</strong> {featuredRelease.releaseDate}</p>
+    <p>
+      <strong>
+        {featuredRelease.released ? "Release date:" : "Releasing:"}
+      </strong>
+      {featuredRelease.releaseDate}
+    </p>
     <p>
       {featuredRelease.description}
     </p>
@@ -52,47 +37,79 @@ const featuredRelease = releases.kingOfNothing;
     </div>
 
     <div class="mt-16 text-center">
-      <h4 class="text-white/70 tracking-[2px] uppercase text-md mb-8">
-        Available On
-      </h4>
+      {
+        featuredRelease.released ? (
+          <>
+            <h4 class="text-white/70 tracking-[2px] uppercase text-md mb-8">
+              Available On
+            </h4>
 
-      <div class="flex justify-center gap-10 mb-12">
-        <a
-          href={featuredRelease.links.spotify}
-          target="_blank"
-          class="flex items-center justify-center w-12 h-12 rounded-full bg-white/[0.09] text-white text-2xl transition-all duration-200 ease-in-out hover:bg-white/[0.15] hover:-translate-y-1"
-          aria-label="Listen on Spotify"
-        >
-          <i class="fa-brands fa-spotify"></i>
-        </a>
-        <a
-          href={featuredRelease.links.appleMusic}
-          target="_blank"
-          class="flex items-center justify-center w-12 h-12 rounded-full bg-white/[0.09] text-white text-2xl transition-all duration-200 ease-in-out hover:bg-white/[0.15] hover:-translate-y-1"
-          aria-label="Listen on Apple Music"
-        >
-          <i class="fa-brands fa-apple"></i>
-        </a>
-        <a
-          href={featuredRelease.links.bandcamp}
-          target="_blank"
-          class="flex items-center justify-center w-12 h-12 rounded-full bg-white/[0.09] text-white text-2xl transition-all duration-200 ease-in-out hover:bg-white/[0.15] hover:-translate-y-1"
-          aria-label="Buy on Bandcamp"
-        >
-          <i class="fa-brands fa-bandcamp"></i>
-        </a>
-      </div>
-      <div
-        class="inline-flex items-center justify-center gap-1.5 text-[0.7rem] text-white/55 px-4 py-1.5 tracking-wider lowercase font-mono transition-colors duration-200 hover:text-white/80 rounded-full bg-white/[0.05] hover:bg-white/[0.07]"
-      >
-        <a
-          href={featuredRelease.links.hyperfollow}
-          target="_blank"
-          class="flex items-center"
-        >
-          <i class="fa-solid fa-headphones text-[0.7rem] mr-1.5"></i> more platforms
-        </a>
-      </div>
+            <div class="flex justify-center gap-10 mb-12">
+              <a
+                href={featuredRelease.links.spotify}
+                target="_blank"
+                class="flex items-center justify-center w-12 h-12 rounded-full bg-white/[0.09] text-white text-2xl transition-all duration-200 ease-in-out hover:bg-white/[0.15] hover:-translate-y-1"
+                aria-label="Listen on Spotify"
+              >
+                <i class="fa-brands fa-spotify" />
+              </a>
+              <a
+                href={featuredRelease.links.appleMusic}
+                target="_blank"
+                class="flex items-center justify-center w-12 h-12 rounded-full bg-white/[0.09] text-white text-2xl transition-all duration-200 ease-in-out hover:bg-white/[0.15] hover:-translate-y-1"
+                aria-label="Listen on Apple Music"
+              >
+                <i class="fa-brands fa-apple" />
+              </a>
+              <a
+                href={featuredRelease.links.bandcamp}
+                target="_blank"
+                class="flex items-center justify-center w-12 h-12 rounded-full bg-white/[0.09] text-white text-2xl transition-all duration-200 ease-in-out hover:bg-white/[0.15] hover:-translate-y-1"
+                aria-label="Buy on Bandcamp"
+              >
+                <i class="fa-brands fa-bandcamp" />
+              </a>
+            </div>
+            <div class="inline-flex items-center justify-center gap-1.5 text-[0.7rem] text-white/55 px-4 py-1.5 tracking-wider lowercase font-mono transition-colors duration-200 hover:text-white/80 rounded-full bg-white/[0.05] hover:bg-white/[0.07]">
+              <a
+                href={featuredRelease.links.hyperfollow}
+                target="_blank"
+                class="flex items-center"
+              >
+                <i class="fa-solid fa-headphones text-[0.7rem] mr-1.5" />
+                more platforms
+              </a>
+            </div>
+          </>
+        ) : (
+          <>
+            <h4 class="text-white/70 tracking-[2px] uppercase text-xs mb-8">
+              GET NOTIFIED ON RELEASE
+            </h4>
+            <div class="flex justify-center gap-8 flex-wrap">
+              <a
+                href={featuredRelease.links.hyperfollow}
+                target="_blank"
+                class="inline-flex items-center justify-center py-3 px-6 bg-black/60 text-white border border-white/20 rounded no-underline text-sm font-medium tracking-wide transition-all duration-300 overflow-hidden uppercase mb-4 bg-gradient-to-br from-purple-900/50 to-purple-800/30 border-purple-500/30 hover:bg-black/75 hover:-translate-y-0.5 hover:border-white/40 hover:from-purple-900/60 hover:to-purple-800/40 hover:border-purple-500/40"
+              >
+                <i class="fa-solid fa-headphones mr-2" />
+                Pre-save on All Platforms
+              </a>
+
+              {featuredRelease.links.bandcamp && (
+                <a
+                  href={featuredRelease.links.bandcamp}
+                  target="_blank"
+                  class="inline-flex items-center justify-center py-3 px-6 bg-black/60 text-white border border-white/20 rounded no-underline text-sm font-medium tracking-wide transition-all duration-300 overflow-hidden uppercase mb-4 bg-gradient-to-br from-teal-900/50 to-teal-800/30 border-teal-500/30 hover:bg-black/75 hover:-translate-y-0.5 hover:border-white/40 hover:from-teal-900/60 hover:to-teal-800/40 hover:border-teal-500/40"
+                >
+                  <i class="fa-brands fa-bandcamp mr-2" />
+                  Pre-order on Bandcamp
+                </a>
+              )}
+            </div>
+          </>
+        )
+      }
     </div>
   </div>
 </section>

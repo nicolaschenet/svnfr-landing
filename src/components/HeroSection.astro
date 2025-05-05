@@ -1,5 +1,6 @@
 ---
 // Hero Section component
+import { featuredRelease } from "../data/releases.js";
 ---
 
 <div class="hero-content">
@@ -18,14 +19,119 @@
 
   <div class="hero-cta">
     <a href="#music" class="hero-button">
-      <span class="desktop-text">LISTEN NOW — KING OF NOTHING EP</span>
-      <span class="mobile-text">LISTEN NOW</span>
+      {
+        featuredRelease.released ? (
+          <span class="desktop-text">OUT NOW — {featuredRelease.title}</span>
+        ) : (
+          <span class="desktop-text">PRE-SAVE — {featuredRelease.title}</span>
+        )
+      }
+      <span class="mobile-text">
+        {featuredRelease.released ? "OUT NOW" : "PRE-SAVE"} — {
+          featuredRelease.title
+        }
+      </span>
       <i class="fa-solid fa-chevron-down"></i>
     </a>
   </div>
 
-  <div class="release-date">
-    <div class="date-label">RELEASING</div>
-    <div class="date">MAY 5TH</div>
-  </div>
+  {
+    featuredRelease.released && (
+      <div class="platform-shortcuts">
+        <a
+          href={featuredRelease.links.spotify}
+          target="_blank"
+          class="platform-icon"
+          aria-label="Listen on Spotify"
+        >
+          <i class="fa-brands fa-spotify" />
+        </a>
+        <a
+          href={featuredRelease.links.appleMusic}
+          target="_blank"
+          class="platform-icon"
+          aria-label="Listen on Apple Music"
+        >
+          <i class="fa-brands fa-apple" />
+        </a>
+        <a
+          href={featuredRelease.links.bandcamp}
+          target="_blank"
+          class="platform-icon"
+          aria-label="Buy on Bandcamp"
+        >
+          <i class="fa-brands fa-bandcamp" />
+        </a>
+        <a
+          href={featuredRelease.links.hyperfollow}
+          target="_blank"
+          class="platform-icon"
+          aria-label="More platforms"
+        >
+          <i class="fa-solid fa-headphones" />
+        </a>
+      </div>
+    )
+  }
+
+  {
+    !featuredRelease.released ? (
+      <div class="release-date">
+        <div class="date">RELEASING</div>
+        <div class="date-label">
+          {featuredRelease.releaseDate.toUpperCase()}
+        </div>
+      </div>
+    ) : (
+      <div class="release-date-discrete">
+        {featuredRelease.releaseDate.toUpperCase()}
+      </div>
+    )
+  }
 </div>
+
+<style>
+  .platform-shortcuts {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .platform-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: rgba(255, 255, 255, 0.09);
+    border-radius: 50%;
+    color: white;
+    font-size: 1.2rem;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .platform-icon:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-3px);
+  }
+
+  .release-date-discrete {
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.1rem;
+    font-family: "IBM Plex Mono", monospace;
+  }
+
+  @media (max-width: 640px) {
+    .platform-shortcuts {
+      gap: 1rem;
+    }
+
+    .platform-icon {
+      width: 2rem;
+      height: 2rem;
+      font-size: 1rem;
+    }
+  }
+</style>
