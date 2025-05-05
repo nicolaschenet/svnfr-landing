@@ -1,12 +1,106 @@
 ---
 // Music Section component
-import { Image } from "astro:assets";
 import { featuredRelease } from "../data/releases.js";
+
+// Function to compute darker variants of the accent color
+function getDarkerShade(color: string, opacity: number): string {
+  const hexToRgb = (hex: string) => {
+    const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    const fullHex = hex.replace(
+      shorthandRegex,
+      (m: string, r: string, g: string, b: string) => r + r + g + g + b + b
+    );
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(fullHex);
+    return result
+      ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16),
+        }
+      : null;
+  };
+
+  const rgb = hexToRgb(color);
+  if (!rgb) return `rgba(17, 17, 17, ${opacity})`;
+
+  // Make a dark shade by reducing RGB values to 15-25% of original
+  const darkR = Math.floor(rgb.r * 0.15);
+  const darkG = Math.floor(rgb.g * 0.15);
+  const darkB = Math.floor(rgb.b * 0.2);
+
+  return `rgba(${darkR}, ${darkG}, ${darkB}, ${opacity})`;
+}
+
+// Function to compute a very light version of the accent color (for text)
+function getLightAccentTint(color: string): string {
+  const hexToRgb = (hex: string) => {
+    const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    const fullHex = hex.replace(
+      shorthandRegex,
+      (m: string, r: string, g: string, b: string) => r + r + g + g + b + b
+    );
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(fullHex);
+    return result
+      ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16),
+        }
+      : null;
+  };
+
+  const rgb = hexToRgb(color);
+  if (!rgb) return "rgba(255, 255, 255, 0.95)";
+
+  // Calculate perceived brightness (using the formula from WCAG)
+  // Luminance = 0.2126*R + 0.7152*G + 0.0722*B
+  const luminance = (0.2126 * rgb.r + 0.7152 * rgb.g + 0.0722 * rgb.b) / 255;
+
+  let textR, textG, textB;
+
+  if (luminance < 0.5) {
+    // Dark accent color - create a light tint
+    // Calculate a color that's 90% white, 10% accent
+    textR = Math.floor(255 * 0.9 + rgb.r * 0.1);
+    textG = Math.floor(255 * 0.9 + rgb.g * 0.1);
+    textB = Math.floor(255 * 0.9 + rgb.b * 0.1);
+  } else {
+    // Light accent color - create a dark tint
+    // Calculate a color that's 90% black, 10% accent
+    textR = Math.floor(0 * 0.9 + rgb.r * 0.1);
+    textG = Math.floor(0 * 0.9 + rgb.g * 0.1);
+    textB = Math.floor(0 * 0.9 + rgb.b * 0.1);
+  }
+
+  return `rgb(${textR}, ${textG}, ${textB})`;
+}
+
+// Generate dark versions of the accent color
+const darkAccent = getDarkerShade(featuredRelease.accentColor, 0.95);
+const darkerAccent = getDarkerShade(featuredRelease.accentColor, 0.85);
+
+// Ensure we have a brighter version of the accent color for better contrast
+const brighterAccent = featuredRelease.accentColor;
+
+// Generate light tint of accent color for text
+const lightAccentTint = getLightAccentTint(featuredRelease.accentColor);
 ---
 
 <section id="music" class="section">
   <h2>Music</h2>
-  <div class="featured-release">
+  <div
+    class="featured-release"
+    id="featured-release"
+    style={`
+      --accent-color: ${featuredRelease.accentColor};
+      --accent-color-transparent: ${featuredRelease.accentColor}33;
+      --accent-color-glow: ${featuredRelease.accentColor}11;
+      --accent-color-highlight: ${brighterAccent};
+      --dark-accent: ${darkAccent};
+      --darker-accent: ${darkerAccent};
+      --light-accent-tint: ${lightAccentTint};
+    `}
+  >
     <h3>{featuredRelease.title}</h3>
     <p>
       <strong>
@@ -105,3 +199,121 @@ import { featuredRelease } from "../data/releases.js";
     }
   </div>
 </section>
+
+<style>
+  /* Custom styling for the featured release container */
+  .featured-release {
+    position: relative;
+    border-radius: 0.75rem;
+    padding: 3rem;
+    margin-bottom: 3rem;
+    overflow: hidden;
+    background-color: var(--dark-accent);
+    background-image: linear-gradient(
+        to bottom right,
+        var(--darker-accent),
+        var(--dark-accent)
+      ),
+      linear-gradient(to bottom, transparent, var(--accent-color-glow));
+    border: 1px solid var(--accent-color-transparent);
+    box-shadow:
+      0 10px 30px rgba(0, 0, 0, 0.5),
+      0 0 30px var(--accent-color-glow);
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .featured-release::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(
+      45deg,
+      transparent 0%,
+      var(--accent-color-glow) 50%,
+      transparent 100%
+    );
+  }
+
+  .featured-release h3 {
+    font-size: 2.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--accent-color-highlight);
+    text-shadow:
+      0 0 10px var(--accent-color-glow),
+      0 0 2px rgba(0, 0, 0, 0.8);
+    letter-spacing: 0.025em;
+  }
+
+  .featured-release p {
+    color: var(--light-accent-tint);
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+  }
+
+  .featured-release p strong {
+    color: white;
+    font-weight: 600;
+  }
+
+  /* Improved contrast for links inside paragraphs */
+  .featured-release p a {
+    color: var(--accent-color-highlight);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.2s ease;
+  }
+
+  .featured-release p a:hover {
+    color: white;
+  }
+
+  /* Better visibility for social media links */
+  .featured-release .flex a {
+    color: var(--light-accent-tint);
+  }
+
+  .featured-release .flex a:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: var(--accent-color-highlight);
+  }
+
+  /* Remove the semi-transparent background styling */
+  /* Add a subtle semi-transparent background behind text for better readability */
+  .featured-release p {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    margin-left: 0;
+    margin-right: 0;
+    width: auto;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 640px) {
+    .featured-release {
+      padding: 2rem;
+    }
+
+    .featured-release h3 {
+      font-size: 1.75rem;
+    }
+
+    .featured-release p {
+      font-size: 1rem;
+      margin-left: 0;
+      margin-right: 0;
+      width: auto;
+    }
+  }
+</style>
