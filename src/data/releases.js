@@ -9,6 +9,7 @@ export const releases = {
     description:
       '"King of Nothing" is the emotional core of SINGVLARITY — a cinematic collapse rendered in slow synthwave. Glitchy textures, haunted melodies, and aching loops. A love letter delivered after the end of the world.',
     coverArt: kingOfNothingCoverArt,
+    accentColor: "#e84c83", // Vibrant pink that complements the cover art
     links: {
       hyperfollow: "https://distrokid.com/hyperfollow/svnfr/king-of-nothing-ep",
       spotify:
