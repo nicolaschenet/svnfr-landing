@@ -59,7 +59,7 @@ import { featuredRelease } from "../data/releases.js";
 
     {
       featuredRelease.released && featuredRelease.links.spotify && (
-        <div class="spotify-embed mt-8 mb-8">
+        <div class="spotify-embed mt-8">
           <iframe
             style="border-radius:12px"
             src={`https://open.spotify.com/embed/album/${featuredRelease.links.spotify.split("/album/")[1].split("?")[0]}`}
