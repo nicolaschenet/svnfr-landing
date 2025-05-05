@@ -37,7 +37,7 @@ import { featuredRelease } from "../data/releases.js";
 
   {
     featuredRelease.released && (
-      <div class="platform-shortcuts">
+      <div class="platform-shortcuts pb-8">
         <a
           href={featuredRelease.links.spotify}
           target="_blank"
@@ -73,7 +73,6 @@ import { featuredRelease } from "../data/releases.js";
       </div>
     )
   }
-
   {
     !featuredRelease.released ? (
       <div class="release-date">
@@ -82,11 +81,7 @@ import { featuredRelease } from "../data/releases.js";
           {featuredRelease.releaseDate.toUpperCase()}
         </div>
       </div>
-    ) : (
-      <div class="release-date-discrete">
-        {featuredRelease.releaseDate.toUpperCase()}
-      </div>
-    )
+    ) : null
   }
 </div>
 
