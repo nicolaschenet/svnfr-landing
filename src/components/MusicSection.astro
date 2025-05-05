@@ -2,27 +2,45 @@
 // Music Section component
 import { Image } from "astro:assets";
 import kingOfNothingCoverArt from "../images/king-of-nothing-cover-art.png";
+
+// Music releases data
+const releases = {
+  kingOfNothing: {
+    title: "King of Nothing — EP",
+    releaseDate: "May 5th, 2025",
+    description:
+      '"King of Nothing" is the emotional core of SINGVLARITY — a cinematic collapse rendered in slow synthwave. Glitchy textures, haunted melodies, and aching loops. A love letter delivered after the end of the world.',
+    coverArt: kingOfNothingCoverArt,
+    links: {
+      hyperfollow: "https://distrokid.com/hyperfollow/svnfr/king-of-nothing-ep",
+      spotify: "https://open.spotify.com/album/YOUR_SPOTIFY_ALBUM_ID",
+      appleMusic: "https://music.apple.com/album/YOUR_APPLE_MUSIC_ALBUM_ID",
+      bandcamp: "https://svnfr.bandcamp.com/album/king-of-nothing-ep",
+    },
+  },
+};
+
+// Current featured release
+const featuredRelease = releases.kingOfNothing;
 ---
 
 <section id="music" class="section">
   <h2>Music</h2>
   <div class="featured-release">
-    <h3>King of Nothing — EP</h3>
-    <p><strong>Release date:</strong> May 5th, 2025</p>
+    <h3>{featuredRelease.title}</h3>
+    <p><strong>Release date:</strong> {featuredRelease.releaseDate}</p>
     <p>
-      "King of Nothing" is the emotional core of SINGVLARITY — a cinematic
-      collapse rendered in slow synthwave. Glitchy textures, haunted melodies,
-      and aching loops. A love letter delivered after the end of the world.
+      {featuredRelease.description}
     </p>
     <div class="album-container">
       <a
-        href="https://svnfr.bandcamp.com/album/king-of-nothing-ep"
+        href={featuredRelease.links.hyperfollow}
         target="_blank"
         class="album-artwork"
       >
         <Image
-          src={kingOfNothingCoverArt}
-          alt="King Of Nothing EP by SVNFR"
+          src={featuredRelease.coverArt}
+          alt={featuredRelease.title + " by SVNFR"}
           width={300}
           height={300}
           densities={[1, 2]}
@@ -32,21 +50,49 @@ import kingOfNothingCoverArt from "../images/king-of-nothing-cover-art.png";
         </div>
       </a>
     </div>
-    <div class="release-links">
-      <a
-        href="https://distrokid.com/hyperfollow/svnfr/king-of-nothing-ep"
-        target="_blank"
-        class="button"
+
+    <div class="mt-16 text-center">
+      <h4 class="text-white/70 tracking-[2px] uppercase text-md mb-8">
+        Available On
+      </h4>
+
+      <div class="flex justify-center gap-10 mb-12">
+        <a
+          href={featuredRelease.links.spotify}
+          target="_blank"
+          class="flex items-center justify-center w-12 h-12 rounded-full bg-white/[0.09] text-white text-2xl transition-all duration-200 ease-in-out hover:bg-white/[0.15] hover:-translate-y-1"
+          aria-label="Listen on Spotify"
+        >
+          <i class="fa-brands fa-spotify"></i>
+        </a>
+        <a
+          href={featuredRelease.links.appleMusic}
+          target="_blank"
+          class="flex items-center justify-center w-12 h-12 rounded-full bg-white/[0.09] text-white text-2xl transition-all duration-200 ease-in-out hover:bg-white/[0.15] hover:-translate-y-1"
+          aria-label="Listen on Apple Music"
+        >
+          <i class="fa-brands fa-apple"></i>
+        </a>
+        <a
+          href={featuredRelease.links.bandcamp}
+          target="_blank"
+          class="flex items-center justify-center w-12 h-12 rounded-full bg-white/[0.09] text-white text-2xl transition-all duration-200 ease-in-out hover:bg-white/[0.15] hover:-translate-y-1"
+          aria-label="Buy on Bandcamp"
+        >
+          <i class="fa-brands fa-bandcamp"></i>
+        </a>
+      </div>
+      <div
+        class="inline-flex items-center justify-center gap-1.5 text-[0.7rem] text-white/55 px-4 py-1.5 tracking-wider lowercase font-mono transition-colors duration-200 hover:text-white/80 rounded-full bg-white/[0.05] hover:bg-white/[0.07]"
       >
-        <i class="fa-brands fa-spotify"></i> Pre-save
-      </a>
-      <a
-        href="https://svnfr.bandcamp.com/album/king-of-nothing-ep"
-        target="_blank"
-        class="button"
-      >
-        <i class="fa-brands fa-bandcamp"></i> Pre-order
-      </a>
+        <a
+          href={featuredRelease.links.hyperfollow}
+          target="_blank"
+          class="flex items-center"
+        >
+          <i class="fa-solid fa-headphones text-[0.7rem] mr-1.5"></i> more platforms
+        </a>
+      </div>
     </div>
   </div>
 </section>
