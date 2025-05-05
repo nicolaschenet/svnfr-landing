@@ -11,8 +11,10 @@ export const releases = {
     coverArt: kingOfNothingCoverArt,
     links: {
       hyperfollow: "https://distrokid.com/hyperfollow/svnfr/king-of-nothing-ep",
-      spotify: "https://open.spotify.com/album/YOUR_SPOTIFY_ALBUM_ID",
-      appleMusic: "https://music.apple.com/album/YOUR_APPLE_MUSIC_ALBUM_ID",
+      spotify:
+        "https://open.spotify.com/album/6QvuF7MqMQjDOfiQswovo2?si=s_duEkS_Q0G9Qgp7ENfbnQ",
+      appleMusic:
+        "https://music.apple.com/us/album/king-of-nothing-ep-single/1811316528",
       bandcamp: "https://svnfr.bandcamp.com/album/king-of-nothing-ep",
     },
   },
