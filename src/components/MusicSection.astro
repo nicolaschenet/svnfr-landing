@@ -1,6 +1,6 @@
 ---
 // Music Section component
-import { featuredRelease } from "../data/releases.js";
+import { featuredRelease, otherReleases } from "../data/releases.ts";
 
 // Function to compute darker variants of the accent color
 function getDarkerShade(color: string, opacity: number): string {
@@ -76,22 +76,33 @@ function getLightAccentTint(color: string): string {
 }
 
 // Generate dark versions of the accent color
-const darkAccent = getDarkerShade(featuredRelease.accentColor, 0.95);
-const darkerAccent = getDarkerShade(featuredRelease.accentColor, 0.85);
+const defaultAccentColor = "#e84c83"; // Fallback accent color
+const darkAccent = getDarkerShade(
+  featuredRelease?.accentColor || defaultAccentColor,
+  0.95
+);
+const darkerAccent = getDarkerShade(
+  featuredRelease?.accentColor || defaultAccentColor,
+  0.85
+);
 
 // Ensure we have a brighter version of the accent color for better contrast
-const brighterAccent = featuredRelease.accentColor;
+const brighterAccent = featuredRelease?.accentColor || defaultAccentColor;
 
 // Generate light tint of accent color for text
-const lightAccentTint = getLightAccentTint(featuredRelease.accentColor);
+const lightAccentTint = getLightAccentTint(
+  featuredRelease?.accentColor || defaultAccentColor
+);
 ---
 
 <section id="music" class="section">
   <h2>Music</h2>
-  <div
-    class="featured-release"
-    id="featured-release"
-    style={`
+  {
+    featuredRelease && (
+      <div
+        class="featured-release"
+        id="featured-release"
+        style={`
       --accent-color: ${featuredRelease.accentColor};
       --accent-color-transparent: ${featuredRelease.accentColor}33;
       --accent-color-glow: ${featuredRelease.accentColor}11;
@@ -100,104 +111,203 @@ const lightAccentTint = getLightAccentTint(featuredRelease.accentColor);
       --darker-accent: ${darkerAccent};
       --light-accent-tint: ${lightAccentTint};
     `}
-  >
-    <h3>{featuredRelease.title}</h3>
-    <p>
-      <strong>
-        {featuredRelease.released ? "Release date:" : "Releasing:"}
-      </strong>
-      {featuredRelease.releaseDate}
-    </p>
+      >
+        <h3>{featuredRelease.title}</h3>
+        <p>
+          <strong>
+            {featuredRelease.released ? "Release date:" : "Releasing:"}
+          </strong>
+          {featuredRelease.releaseDate}
+        </p>
 
-    {
-      featuredRelease.released && (
-        <div class="flex gap-4 mb-6">
-          <a
-            href={featuredRelease.links.spotify}
-            target="_blank"
-            class="flex items-center justify-center w-10 h-10 rounded-full bg-white/[0.09] text-white text-xl transition-all duration-200 ease-in-out hover:bg-white/[0.15] hover:-translate-y-1"
-            aria-label="Listen on Spotify"
-          >
-            <i class="fa-brands fa-spotify" />
-          </a>
-          <a
-            href={featuredRelease.links.appleMusic}
-            target="_blank"
-            class="flex items-center justify-center w-10 h-10 rounded-full bg-white/[0.09] text-white text-xl transition-all duration-200 ease-in-out hover:bg-white/[0.15] hover:-translate-y-1"
-            aria-label="Listen on Apple Music"
-          >
-            <i class="fa-brands fa-apple" />
-          </a>
-          <a
-            href={featuredRelease.links.bandcamp}
-            target="_blank"
-            class="flex items-center justify-center w-10 h-10 rounded-full bg-white/[0.09] text-white text-xl transition-all duration-200 ease-in-out hover:bg-white/[0.15] hover:-translate-y-1"
-            aria-label="Buy on Bandcamp"
-          >
-            <i class="fa-brands fa-bandcamp" />
-          </a>
-          <a
-            href={featuredRelease.links.hyperfollow}
-            target="_blank"
-            class="flex items-center justify-center w-10 h-10 rounded-full bg-white/[0.09] text-white text-xl transition-all duration-200 ease-in-out hover:bg-white/[0.15] hover:-translate-y-1"
-          >
-            <i class="fa-solid fa-headphones" />
-          </a>
-        </div>
-      )
-    }
-
-    <p>
-      {featuredRelease.description}
-    </p>
-
-    {
-      featuredRelease.released && featuredRelease.links.spotify && (
-        <div class="spotify-embed mt-8">
-          <iframe
-            style="border-radius:12px"
-            src={`https://open.spotify.com/embed/album/${featuredRelease.links.spotify.split("/album/")[1].split("?")[0]}`}
-            width="100%"
-            height="352"
-            allowfullscreen=""
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy"
-          />
-        </div>
-      )
-    }
-
-    {
-      !featuredRelease.released && (
-        <div class="mt-16 text-center">
-          <h4 class="text-white/70 tracking-[2px] uppercase text-xs mb-8">
-            GET NOTIFIED ON RELEASE
-          </h4>
-          <div class="flex justify-center gap-8 flex-wrap">
-            <a
-              href={featuredRelease.links.hyperfollow}
-              target="_blank"
-              class="inline-flex items-center justify-center py-3 px-6 bg-black/60 text-white border rounded no-underline text-sm font-medium tracking-wide transition-all duration-300 overflow-hidden uppercase mb-4 bg-gradient-to-br from-purple-900/50 to-purple-800/30 border-purple-500/30 hover:bg-black/75 hover:-translate-y-0.5  hover:from-purple-900/60 hover:to-purple-800/40 hover:border-purple-500/40"
-            >
-              <i class="fa-solid fa-headphones mr-2" />
-              Pre-save on All Platforms
-            </a>
-
+        {featuredRelease.released && featuredRelease.links && (
+          <div class="flex gap-4 mb-6">
+            {featuredRelease.links.spotify && (
+              <a
+                href={featuredRelease.links.spotify}
+                target="_blank"
+                class="flex items-center justify-center w-10 h-10 rounded-full bg-white/[0.09] text-white text-xl transition-all duration-200 ease-in-out hover:bg-white/[0.15] hover:-translate-y-1"
+                aria-label="Listen on Spotify"
+              >
+                <i class="fa-brands fa-spotify" />
+              </a>
+            )}
+            {featuredRelease.links.appleMusic && (
+              <a
+                href={featuredRelease.links.appleMusic}
+                target="_blank"
+                class="flex items-center justify-center w-10 h-10 rounded-full bg-white/[0.09] text-white text-xl transition-all duration-200 ease-in-out hover:bg-white/[0.15] hover:-translate-y-1"
+                aria-label="Listen on Apple Music"
+              >
+                <i class="fa-brands fa-apple" />
+              </a>
+            )}
             {featuredRelease.links.bandcamp && (
               <a
                 href={featuredRelease.links.bandcamp}
                 target="_blank"
-                class="inline-flex items-center justify-center py-3 px-6 bg-black/60 text-white border  rounded no-underline text-sm font-medium tracking-wide transition-all duration-300 overflow-hidden uppercase mb-4 bg-gradient-to-br from-teal-900/50 to-teal-800/30 border-teal-500/30 hover:bg-black/75 hover:-translate-y-0.5  hover:from-teal-900/60 hover:to-teal-800/40 hover:border-teal-500/40"
+                class="flex items-center justify-center w-10 h-10 rounded-full bg-white/[0.09] text-white text-xl transition-all duration-200 ease-in-out hover:bg-white/[0.15] hover:-translate-y-1"
+                aria-label="Buy on Bandcamp"
               >
-                <i class="fa-brands fa-bandcamp mr-2" />
-                Pre-order on Bandcamp
+                <i class="fa-brands fa-bandcamp" />
+              </a>
+            )}
+            {featuredRelease.links.hyperfollow && (
+              <a
+                href={featuredRelease.links.hyperfollow}
+                target="_blank"
+                class="flex items-center justify-center w-10 h-10 rounded-full bg-white/[0.09] text-white text-xl transition-all duration-200 ease-in-out hover:bg-white/[0.15] hover:-translate-y-1"
+              >
+                <i class="fa-solid fa-headphones" />
               </a>
             )}
           </div>
+        )}
+
+        <p>{featuredRelease.description}</p>
+
+        {featuredRelease.released && featuredRelease.links?.spotify && (
+          <div class="spotify-embed mt-8">
+            <iframe
+              style="border-radius:12px"
+              src={`https://open.spotify.com/embed/album/${featuredRelease.links.spotify.split("/album/")[1].split("?")[0]}`}
+              width="100%"
+              height="352"
+              allowfullscreen=""
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+            />
+          </div>
+        )}
+
+        {!featuredRelease.released && featuredRelease.links?.hyperfollow && (
+          <div class="mt-16 text-center">
+            <h4 class="text-white/70 tracking-[2px] uppercase text-xs mb-8">
+              GET NOTIFIED ON RELEASE
+            </h4>
+            <div class="flex justify-center gap-8 flex-wrap">
+              <a
+                href={featuredRelease.links.hyperfollow}
+                target="_blank"
+                class="inline-flex items-center justify-center py-3 px-6 bg-black/60 text-white border rounded no-underline text-sm font-medium tracking-wide transition-all duration-300 overflow-hidden uppercase mb-4 bg-gradient-to-br from-purple-900/50 to-purple-800/30 border-purple-500/30 hover:bg-black/75 hover:-translate-y-0.5  hover:from-purple-900/60 hover:to-purple-800/40 hover:border-purple-500/40"
+              >
+                <i class="fa-solid fa-headphones mr-2" />
+                Pre-save on All Platforms
+              </a>
+
+              {featuredRelease.links.bandcamp && (
+                <a
+                  href={featuredRelease.links.bandcamp}
+                  target="_blank"
+                  class="inline-flex items-center justify-center py-3 px-6 bg-black/60 text-white border  rounded no-underline text-sm font-medium tracking-wide transition-all duration-300 overflow-hidden uppercase mb-4 bg-gradient-to-br from-teal-900/50 to-teal-800/30 border-teal-500/30 hover:bg-black/75 hover:-translate-y-0.5  hover:from-teal-900/60 hover:to-teal-800/40 hover:border-teal-500/40"
+                >
+                  <i class="fa-brands fa-bandcamp mr-2" />
+                  Pre-order on Bandcamp
+                </a>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  <!-- Other releases -->
+  {
+    otherReleases && otherReleases.length > 0 && (
+      <div class="other-releases mt-16">
+        <h3 class="text-2xl font-bold mb-8 text-center">More Music</h3>
+
+        <div class="releases-grid grid grid-cols-1 gap-8">
+          {otherReleases.map((release) => (
+            <div
+              class="release-card"
+              style={`--accent-color: ${release.accentColor}; --accent-color-glow: ${release.accentColor}40; --accent-color-transparent: ${release.accentColor}20; --accent-color-highlight: ${release.accentColor}; --darker-accent: rgba(17, 17, 17, 0.9);`}
+            >
+              <div class="release-content flex flex-col md:flex-row gap-6 p-6">
+                <div class="release-image-container md:w-1/3 flex-shrink-0">
+                  <img
+                    src={release.coverArt.src}
+                    alt={`${release.title} cover art`}
+                    class="w-full h-auto rounded-2xl"
+                  />
+                </div>
+
+                <div class="release-details md:w-2/3">
+                  <h4 class="text-2xl font-semibold mb-2 text-accent uppercase">
+                    {release.title}
+                  </h4>
+
+                  <div class="flex items-center mb-4">
+                    <span
+                      class={`status-indicator ${release.released ? "released" : "upcoming"}`}
+                    >
+                      {release.released ? "RELEASED" : "UPCOMING"}
+                    </span>
+                    <span class="text-base text-white/70">
+                      {release.releaseDate}
+                    </span>
+                  </div>
+
+                  <div class="description space-y-4 text-base whitespace-pre-line leading-relaxed text-white/90 mb-6">
+                    {release.description.split("\n\n").map((paragraph) => (
+                      <p>{paragraph}</p>
+                    ))}
+                  </div>
+
+                  {release.released && release.links && (
+                    <div class="release-links flex flex-wrap gap-3 mt-4">
+                      {release.links.spotify && (
+                        <a
+                          href={release.links.spotify}
+                          target="_blank"
+                          class="btn-release-link spotify-link"
+                        >
+                          <i class="fa-brands fa-spotify mr-2" /> Spotify
+                        </a>
+                      )}
+                      {release.links.appleMusic && (
+                        <a
+                          href={release.links.appleMusic}
+                          target="_blank"
+                          class="btn-release-link apple-link"
+                        >
+                          <i class="fa-brands fa-apple mr-2" /> Apple Music
+                        </a>
+                      )}
+                      {release.links.bandcamp && (
+                        <a
+                          href={release.links.bandcamp}
+                          target="_blank"
+                          class="btn-release-link bandcamp-link"
+                        >
+                          <i class="fa-brands fa-bandcamp mr-2" /> Bandcamp
+                        </a>
+                      )}
+                    </div>
+                  )}
+
+                  {!release.released &&
+                    release.links &&
+                    release.links.hyperfollow && (
+                      <div class="mt-4">
+                        <a
+                          href={release.links.hyperfollow}
+                          target="_blank"
+                          class="btn-release-link presave-link"
+                        >
+                          <i class="fa-solid fa-headphones mr-2" /> Pre-save
+                        </a>
+                      </div>
+                    )}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-      )
-    }
-  </div>
+      </div>
+    )
+  }
 </section>
 
 <style>
@@ -315,5 +425,177 @@ const lightAccentTint = getLightAccentTint(featuredRelease.accentColor);
       margin-right: 0;
       width: auto;
     }
+  }
+
+  /* Styling for other releases cards */
+  .release-card {
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+    background-color: rgba(15, 15, 15, 0.65);
+    transition: transform 0.3s ease;
+  }
+
+  .release-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.4)
+    );
+    opacity: 0.6;
+  }
+
+  .release-image-container img {
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  .release-card:hover .release-image-container img {
+    transform: scale(1.02);
+  }
+
+  .release-content {
+    position: relative;
+  }
+
+  .btn-release-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.025em;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.3);
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .btn-release-link:hover {
+    transform: translateY(-2px);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+  }
+
+  .spotify-link {
+    background-image: linear-gradient(
+      to right,
+      rgba(30, 215, 96, 0.2),
+      rgba(30, 215, 96, 0.05)
+    );
+    border-color: rgba(30, 215, 96, 0.3);
+  }
+
+  .spotify-link:hover {
+    background-image: linear-gradient(
+      to right,
+      rgba(30, 215, 96, 0.3),
+      rgba(30, 215, 96, 0.1)
+    );
+    border-color: rgba(30, 215, 96, 0.4);
+  }
+
+  .apple-link {
+    background-image: linear-gradient(
+      to right,
+      rgba(255, 45, 85, 0.2),
+      rgba(255, 45, 85, 0.05)
+    );
+    border-color: rgba(255, 45, 85, 0.3);
+  }
+
+  .apple-link:hover {
+    background-image: linear-gradient(
+      to right,
+      rgba(255, 45, 85, 0.3),
+      rgba(255, 45, 85, 0.1)
+    );
+    border-color: rgba(255, 45, 85, 0.4);
+  }
+
+  .bandcamp-link {
+    background-image: linear-gradient(
+      to right,
+      rgba(97, 175, 230, 0.2),
+      rgba(97, 175, 230, 0.05)
+    );
+    border-color: rgba(97, 175, 230, 0.3);
+  }
+
+  .bandcamp-link:hover {
+    background-image: linear-gradient(
+      to right,
+      rgba(97, 175, 230, 0.3),
+      rgba(97, 175, 230, 0.1)
+    );
+    border-color: rgba(97, 175, 230, 0.4);
+  }
+
+  .presave-link {
+    background-image: linear-gradient(
+      to right,
+      rgba(137, 87, 255, 0.2),
+      rgba(137, 87, 255, 0.05)
+    );
+    border-color: rgba(137, 87, 255, 0.3);
+  }
+
+  .presave-link:hover {
+    background-image: linear-gradient(
+      to right,
+      rgba(137, 87, 255, 0.3),
+      rgba(137, 87, 255, 0.1)
+    );
+    border-color: rgba(137, 87, 255, 0.4);
+  }
+
+  @media (max-width: 768px) {
+    .release-content {
+      flex-direction: column;
+    }
+
+    .release-image-container,
+    .release-details {
+      width: 100%;
+    }
+  }
+
+  .release-details {
+    position: relative;
+    z-index: 1;
+  }
+
+  .release-details .text-accent {
+    color: var(--accent-color-highlight);
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+  }
+
+  .status-indicator {
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    margin-right: 0.75rem;
+    display: inline-block;
+  }
+
+  .status-indicator.released {
+    background-color: rgba(20, 184, 166, 0.2);
+    color: rgba(20, 184, 166, 1);
+  }
+
+  .status-indicator.upcoming {
+    background-color: rgba(219, 39, 119, 0.2);
+    color: rgba(219, 39, 119, 1);
   }
 </style>
