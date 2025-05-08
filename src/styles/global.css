@@ -33,7 +33,7 @@
             font-weight: 300;
             text-shadow: 0 0 10px rgba(224, 229, 236, 0.3);
         }
-        
+
         /* Section headers special styling */
         .section h2 {
             @apply text-5xl font-semibold mb-10 relative inline-block;
@@ -41,7 +41,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        
+
         .section h2::after {
             content: '';
             position: absolute;
@@ -92,7 +92,7 @@
             -webkit-text-fill-color: transparent;
             position: relative;
         }
-        
+
         .logo-link::after {
             content: attr(data-text);
             position: absolute;
@@ -155,33 +155,33 @@
             transform: translateZ(5px);
             color: #fff;
         }
-        
+
         /* Add specific hover effects for different social media platforms */
         .social-links a.spotify:hover {
             color: #1DB954;
             text-shadow: 0 0 3px rgba(29, 185, 84, 0.5);
         }
-        
+
         .social-links a.apple:hover {
             color: #fff;
             text-shadow: 0 0 3px rgba(255, 255, 255, 0.5);
         }
-        
+
         .social-links a.bandcamp:hover {
             color: #629aa9;
             text-shadow: 0 0 3px rgba(98, 154, 169, 0.5);
         }
-        
+
         .social-links a.instagram:hover {
             color: #E1306C;
             text-shadow: 0 0 3px rgba(225, 48, 108, 0.5);
         }
-        
+
         .social-links a.twitter:hover {
             color: #1DA1F2;
             text-shadow: 0 0 3px rgba(29, 161, 242, 0.5);
         }
-        
+
         .social-links a::before {
             content: '';
             position: absolute;
@@ -194,7 +194,7 @@
             border-radius: 50%;
             z-index: -1;
         }
-        
+
         .social-links a:hover::before {
             opacity: 0.15;
             transform: scale(1.5);
@@ -297,13 +297,14 @@
     /* Section styles */
     .section {
         @apply py-24 px-8 max-w-[900px] mx-auto relative z-5;
+        word-break: break-word;
     }
 
     .section h2 {
         @apply text-5xl font-light text-highlight mb-10 tracking-wider uppercase;
             position: relative;
         }
-        
+
         .section h2::after {
             content: '';
             position: absolute;
