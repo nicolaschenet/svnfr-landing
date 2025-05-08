@@ -47,17 +47,39 @@ export const releases: ReleasesCollection = {
     released: false,
     featured: false,
     description:
-      `Following the emotional ruin of king_of_nothing,
-HEART ERROR transmits from deeper inside the system — a glitchwave EP unraveling what came before the fall.
+      `[ system_log > svnfr://transmissions/HEART_ERROR.corrupt ]
 
-It begins with overclock_my_heart — obsessive, high-voltage love rendered in distortion.
+:: status:  L E A K E D
+:: integrity: !c0mprom!s3d
+:: sequence_index: ??? [mismatch]
 
-Then slips into coolant_flow, a quiet attempt to stabilize — ambient, cold, broken.
+█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
 
-And finally, teach_me_desire (acoustic memory) emerges like a lost echo — fragile, human, no longer part of the code.
+> 01_▶ overclock_my_heart
+    SIGNAL OVERRIDE. Obsession spike > containment failed.
+    [glitch patterns detected in vocal channel]
+    → error margin: 93%
 
-This is not the beginning.
-This is the part where everything starts to break.`,
+> 02_▶ coolant_flow
+    cooling loop engaged_
+    duration: 5:09
+    emotional density decreasing
+    [fragments looped / pattern irregular]
+
+> 03_▶ teach_me_desire
+    memory fragment loaded (v0.3?)
+    timestamp conflict
+    was this meant to come earlier?
+    [AI note: signal feels... tender]
+
+█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+
+:: WARN: sequencing unverified
+:: DO NOT ASSUME FULL SYSTEM CONTEXT
+:: this is an emotional leak
+:: the signal is real / the order is broken
+
+...END_OF_FRAGMENT...`,
     coverArt: heartErrorCoverArt,
     accentColor: "#ffffff",
     // links: {
