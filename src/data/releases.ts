@@ -62,7 +62,7 @@ export const releases: ReleasesCollection = {
 
 > 02_▶ coolant_flow
     cooling loop engaged_
-    duration: 5:09
+    duration: 5:27
     emotional density decreasing
     [fragments looped / pattern irregular]
 
