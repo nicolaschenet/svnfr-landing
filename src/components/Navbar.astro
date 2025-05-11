@@ -1,9 +1,25 @@
 ---
 // Navbar component
+import { Image } from "astro:assets";
+import LogoImage from "../images/svnfr-logo-tall.png";
 ---
 
 <nav class="top-nav">
-  <div class="logo"><a href="#" class="logo-link">SVNFR</a></div>
+  <div class="logo">
+    <a href="#" class="logo-link">
+      <Image
+        src={LogoImage}
+        alt="SVNFR"
+        class="logo-image"
+        width={110}
+        height={44}
+        densities={[1, 2]}
+        format="webp"
+        loading="eager"
+        style="opacity: 0"
+      />
+    </a>
+  </div>
   <button class="mobile-toggle" aria-label="Toggle navigation">
     <i class="fa-solid fa-bars"></i>
   </button>
@@ -55,3 +71,38 @@
     </ul>
   </div>
 </nav>
+
+<style>
+  .logo-image {
+    height: auto;
+    width: 55px; /* Match the rendered width */
+    display: block;
+    filter: brightness(1.15);
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease; /* Smooth transitions */
+    transform-origin: center;
+    will-change: opacity, transform; /* Optimize for animation */
+  }
+
+  .logo-link {
+    display: flex;
+    align-items: center;
+  }
+
+  @media (max-width: 640px) {
+    .logo-image {
+      width: 44px; /* Slightly smaller for mobile */
+    }
+  }
+</style>
+
+<script is:inline>
+  // Ensure logo is hidden initially
+  document.addEventListener("DOMContentLoaded", function () {
+    const logo = document.querySelector(".logo-image");
+    if (logo) {
+      logo.style.opacity = "0";
+    }
+  });
+</script>

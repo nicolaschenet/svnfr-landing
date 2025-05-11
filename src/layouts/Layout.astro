@@ -45,6 +45,26 @@ const {
     <script
       src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"
       is:inline></script>
+
+    <!-- Hide navbar logo immediately -->
+    <script is:inline>
+      // This script runs immediately to hide the navbar logo before any rendering
+      (function () {
+        // Create a style element that hides the logo initially
+        var style = document.createElement("style");
+        style.textContent = ".logo-image { opacity: 0 !important; }";
+        document.head.appendChild(style);
+
+        // Also try with DOMContentLoaded for backup
+        document.addEventListener("DOMContentLoaded", function () {
+          const navbarLogo = document.querySelector(".logo-image");
+          if (navbarLogo) {
+            navbarLogo.style.setProperty("opacity", "0", "important");
+            console.log("Navbar logo hidden by early script");
+          }
+        });
+      })();
+    </script>
   </head>
   <body>
     <slot />
@@ -52,6 +72,7 @@ const {
     <script src="/scripts/particles-config.js" is:inline></script>
     <script src="/scripts/glitch-effect.js" is:inline></script>
     <script src="/scripts/nav.js" is:inline></script>
+    <script src="/scripts/navbar-scroll.js" is:inline></script>
     <Analytics />
     <SpeedInsights />
   </body>
