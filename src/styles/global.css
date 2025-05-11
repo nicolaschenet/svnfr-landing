@@ -36,10 +36,8 @@
 
         /* Section headers special styling */
         .section h2 {
-            @apply text-5xl font-semibold mb-10 relative inline-block;
-            background: linear-gradient(135deg, #e0e5ec 0%, #c2d1e1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            @apply text-5xl font-light text-highlight mb-10 tracking-wider uppercase;
+                position: relative;
         }
 
         .section h2::after {
@@ -59,10 +57,268 @@
     /* Hero section */
     .hero {
         @apply h-screen relative flex flex-col justify-end p-16 overflow-hidden;
-        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 70%, var(--color-dark) 100%),
-            url('/assets/glitch-header.png');
-        background-size: cover;
-        background-position: 65% center;
+        background-color: var(--color-dark);
+            position: relative;
+            /* Add subtle vignette */
+            box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.8);
+        }
+        
+        /* Create base dark layer */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.95) 0%, rgba(17, 17, 17, 0.8) 100%);
+            z-index: 0;
+        }
+        
+        /* Section transition - add smooth overlap */
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to bottom,
+                    transparent 0%,
+                    rgba(17, 17, 17, 0.3) 40%,
+                    rgba(17, 17, 17, 0.8) 80%,
+                    var(--color-dark) 100%);
+            z-index: 5;
+            pointer-events: none;
+        }
+        
+        /* Animated scanlines - moved to a new element */
+        .hero .scanlines {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg,
+                    rgba(0, 0, 0, 0) 0px,
+                    rgba(0, 0, 0, 0) 1px,
+                    rgba(255, 255, 255, 0.08) 1px,
+                    rgba(255, 255, 255, 0.08) 2px);
+            animation: scanlines 8s linear infinite;
+            opacity: 0.5;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        /* Add a container for glitch elements */
+        .hero .glitch-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        /* Digital distortion overlay */
+        .hero .glitch-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(90deg,
+                    rgba(255, 42, 212, 0.05) 0%,
+                    rgba(255, 42, 212, 0.05) 0.1%,
+                    transparent 0.1%,
+                    transparent 0.2%,
+                    rgba(0, 232, 255, 0.05) 0.2%,
+                    rgba(0, 232, 255, 0.05) 0.3%,
+                    transparent 0.3%,
+                    transparent 0.35%);
+            pointer-events: none;
+            opacity: 0.5;
+            mix-blend-mode: screen;
+            animation: digital-distortion 2s steps(10) infinite;
+            z-index: 10;
+        }
+        
+        /* Horizontal glitch lines */
+        .hero .h-glitch {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(255, 42, 212, 0.15) 20%,
+                    transparent 20.1%,
+                    transparent 40%,
+                    rgba(0, 232, 255, 0.15) 50%,
+                    transparent 50.1%,
+                    transparent 80%,
+                    rgba(185, 103, 255, 0.15) 90%,
+                    transparent 100%);
+            background-size: 200% 100%;
+            animation: h-glitch-move 15s linear infinite;
+            opacity: 0;
+            z-index: 2;
+            mix-blend-mode: screen;
+        }
+        
+        /* Vertical color bands */
+        .hero .v-glitch {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg,
+                    transparent 5%,
+                    rgba(255, 42, 212, 0.15) 10%,
+                    transparent 10.1%,
+                    transparent 30%,
+                    rgba(0, 232, 255, 0.15) 35%,
+                    transparent 35.1%,
+                    transparent 70%,
+                    rgba(185, 103, 255, 0.15) 75%,
+                    transparent 75.1%);
+            background-size: 100% 200%;
+            animation: v-glitch-move 20s linear infinite;
+            opacity: 0;
+            z-index: 2;
+            mix-blend-mode: screen;
+        }
+        
+        /* Random noise overlay */
+        .hero .noise {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.2'/%3E%3C/svg%3E");
+            opacity: 0.15;
+            z-index: 3;
+            mix-blend-mode: overlay;
+            pointer-events: none;
+        }
+        
+        /* Chromatic aberration effect */
+        .hero .chromatic {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 40%,
+                    rgba(255, 42, 212, 0.15) 0%,
+                    transparent 50%), radial-gradient(circle at 70% 60%,
+                    rgba(0, 232, 255, 0.15) 0%,
+                    transparent 50%);
+            filter: blur(30px);
+            opacity: 0.7;
+            z-index: 1;
+            mix-blend-mode: screen;
+            animation: pulse-subtle 8s ease-in-out infinite alternate;
+        }
+        
+        /* VHS tracking static - horizontal distorted lines */
+        .hero .tracking {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom,
+                    transparent 0%,
+                    transparent 92%,
+                    rgba(255, 255, 255, 0.15) 92.1%,
+                    rgba(255, 255, 255, 0.25) 93%,
+                    transparent 93.1%,
+                    transparent 97%,
+                    rgba(255, 255, 255, 0.15) 97.1%,
+                    transparent 100%);
+            background-size: 100% 150px;
+            animation: tracking 10s linear infinite;
+            opacity: 0;
+            z-index: 4;
+            mix-blend-mode: lighten;
+        }
+        
+        /* Floating elements for transition */
+        .section::after {
+            content: '';
+            position: absolute;
+            top: -150px;
+            right: 20%;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 42, 212, 0.4) 0%, transparent 70%);
+            box-shadow: 0 0 15px rgba(255, 42, 212, 0.6);
+            animation: floating 10s ease-in-out infinite;
+            opacity: 0.6;
+            z-index: 1;
+        }
+        
+        .section:first-of-type::before {
+            animation-delay: -2s;
+        }
+        
+        /* Remove the vertical bar connector */
+        .section::before {
+            content: none;
+        }
+        
+        /* Section styling */
+        .section {
+            @apply py-24 px-8 max-w-[900px] mx-auto relative z-5;
+            word-break: break-word;
+            position: relative;
+        }
+        
+        /* Section headers special styling */
+        .section h2 {
+            @apply text-5xl font-light text-highlight mb-10 tracking-wider uppercase;
+            position: relative;
+        }
+        
+        .section h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--color-neon-pink), transparent);
+            box-shadow: 0 0 8px var(--color-neon-pink);
+        }
+        
+        /* Featured release styling */
+        .featured-release {
+            @apply border rounded-xl p-12 mb-12 relative overflow-hidden;
+            background-color: rgba(17, 17, 17, 0.6);
+            border-color: rgba(255, 42, 212, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 42, 212, 0.1);
+        }
+        
+        .featured-release::before {
+            content: '';
+            @apply absolute top-0 left-0 w-full h-full pointer-events-none;
+            background: linear-gradient(45deg, transparent 0%, rgba(255, 42, 212, 0.05) 50%, transparent 100%);
+        }
+        
+        .featured-release h3 {
+            @apply text-4xl font-semibold text-highlight mb-2 tracking-wide;
+        }
+        
+        .featured-release p {
+            @apply text-[#ccc] mb-4 text-lg opacity-80;
     }
 
     /* Particles container */
@@ -81,35 +337,19 @@
     }
 
     .logo {
-        @apply text-2xl font-semibold;
-            letter-spacing: 0.2em;
+        display: flex;
+            align-items: center;
     }
 
     .logo-link {
-        @apply no-underline transition-colors duration-300;
-            background: linear-gradient(135deg, #e0e5ec 0%, #c2d1e1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        @apply no-underline transition-all duration-300;
             position: relative;
-        }
-
-        .logo-link::after {
-            content: attr(data-text);
-            position: absolute;
-            left: 0;
-            top: 0;
-            z-index: -1;
-            color: transparent;
-            filter: blur(8px);
-            -webkit-text-stroke: 1px rgba(255, 42, 212, 0.3);
-            animation: neon-pulse 3s infinite alternate;
+        display: block;
     }
 
     .logo-link:hover {
-        text-shadow: 0 0 8px var(--color-highlight);
-        background: linear-gradient(135deg, #e8ecf1 0%, #d1dfe8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+            transform: translateY(-1px);
     }
 
     .nav-container {
@@ -223,17 +463,6 @@
         @apply mb-0 max-w-[600px] z-10 relative mt-auto pt-60;
     }
 
-    /* Glitch title */
-    .glitch-title {
-        @apply relative mb-6;
-    }
-
-    .glitch-title h1 {
-        @apply text-6xl text-white mb-3 leading-none font-light tracking-tight uppercase font-sans;
-        animation: mainTextGlitch 3s infinite, neonFlicker 5s infinite;
-        text-shadow: 0 0 2px rgba(255, 255, 255, 0.4);
-    }
-
     /* Highlight in title */
     .highlight {
         @apply text-white relative inline-block font-normal;
@@ -292,131 +521,7 @@
 
     .date {
         @apply text-2xl text-white font-medium tracking-wide;
-    }
 
-    /* Section styles */
-    .section {
-        @apply py-24 px-8 max-w-[900px] mx-auto relative z-5;
-        word-break: break-word;
-    }
-
-    .section h2 {
-        @apply text-5xl font-light text-highlight mb-10 tracking-wider uppercase;
-            position: relative;
-        }
-
-        .section h2::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -8px;
-            width: 60px;
-            height: 2px;
-            background: linear-gradient(90deg, var(--color-neon-pink), transparent);
-            box-shadow: 0 0 8px var(--color-neon-pink);
-    }
-
-    /* Featured release styling */
-    .featured-release {
-        @apply border rounded-xl p-12 mb-12 relative overflow-hidden;
-        background-color: rgba(17, 17, 17, 0.6);
-        border-color: rgba(255, 42, 212, 0.3);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 42, 212, 0.1);
-    }
-
-    .featured-release::before {
-        content: '';
-        @apply absolute top-0 left-0 w-full h-full pointer-events-none;
-        background: linear-gradient(45deg, transparent 0%, rgba(255, 42, 212, 0.05) 50%, transparent 100%);
-    }
-
-    .featured-release h3 {
-        @apply text-4xl font-semibold text-highlight mb-2 tracking-wide;
-    }
-
-    .featured-release p {
-        @apply text-[#ccc] mb-4 text-lg opacity-80;
-    }
-
-        /* Album container */
-        .album-container {
-        @apply my-10 relative overflow-hidden flex justify-center items-center;
-    }
-
-    .album-artwork {
-        @apply relative block w-[400px] h-[400px] rounded-lg overflow-hidden z-[2];
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: box-shadow 0.3s ease, border-color 0.3s ease;
-    }
-
-    .album-artwork img {
-        @apply w-full h-full object-cover block;
-    }
-
-    .play-overlay {
-        @apply absolute top-0 left-0 w-full h-full flex justify-center items-center opacity-0 z-[2];
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5));
-            transition: opacity 0.3s ease;
-    }
-
-    .play-overlay i {
-        @apply text-5xl text-white opacity-90;
-            filter: drop-shadow(0 0 10px rgba(255, 42, 212, 0.8));
-    }
-
-    .album-artwork:hover {
-        border-color: rgba(255, 42, 212, 0.3);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 42, 212, 0.15);
-    }
-
-    .album-artwork:hover .play-overlay {
-        @apply opacity-100;
-    }
-
-    /* Release links */
-    .release-links {
-        @apply flex justify-center flex-wrap gap-6 mt-12;
-    }
-
-    .button {
-        @apply inline-flex items-center justify-center py-3.5 px-8 text-highlight no-underline rounded-lg text-base font-medium tracking-wide transition-all duration-300 border min-w-[200px] text-center uppercase;
-            background-color: rgba(17, 17, 17, 0.7);
-            border-color: rgba(255, 42, 212, 0.25);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-        position: relative;
-            overflow: hidden;
-        }
-
-        .button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 42, 212, 0.1), transparent);
-            transition: left 0.8s ease;
-    }
-
-    .button:hover {
-        background-color: rgba(17, 17, 17, 0.8);
-        border-color: rgba(255, 42, 212, 0.4);
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25), 0 0 15px rgba(255, 42, 212, 0.15);
-            transform: translateY(-2px);
-        }
-
-        .button:hover::before {
-            left: 100%;
-        }
-
-        .button i {
-            @apply mr-2 text-lg transition-transform duration-300;
-        }
-
-        .button:hover i {
-            transform: scale(1.1);
-    }
 }
 
 /* Animation keyframes */
@@ -607,6 +712,7 @@
         opacity: 0.9;
     }
 }
+
 @keyframes neon-pulse {
     0% {
         opacity: 0.1;
@@ -624,6 +730,342 @@
         opacity: 0.1;
         filter: blur(8px);
         -webkit-text-stroke: 1px rgba(185, 103, 255, 0.3);
+    }
+}
+/* New animation keyframes for the glitch effect */
+@keyframes scanlines {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 0 100px;
+    }
+}
+
+@keyframes h-glitch-move {
+    0% {
+        background-position: 0% 0;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0;
+    }
+
+    10.1% {
+        opacity: 0.7;
+    }
+
+    14% {
+        opacity: 0.7;
+    }
+
+    14.1% {
+        opacity: 0;
+    }
+
+    20% {
+        background-position: -20% 0;
+        opacity: 0;
+    }
+
+    35% {
+        opacity: 0;
+    }
+
+    35.1% {
+        opacity: 0.5;
+    }
+
+    40% {
+        opacity: 0.5;
+    }
+
+    40.1% {
+        opacity: 0;
+    }
+
+    54% {
+        opacity: 0;
+    }
+
+    54.1% {
+        opacity: 0.6;
+        background-position: -40% 0;
+    }
+
+    56% {
+        opacity: 0.6;
+    }
+
+    56.1% {
+        opacity: 0;
+    }
+
+    70% {
+        background-position: -70% 0;
+        opacity: 0;
+    }
+
+    70.1% {
+        opacity: 0.6;
+    }
+
+    75% {
+        opacity: 0.6;
+    }
+
+    75.1% {
+        opacity: 0;
+    }
+
+    85% {
+        opacity: 0;
+    }
+
+    85.1% {
+        opacity: 0.5;
+        background-position: -120% 0;
+    }
+
+    86% {
+        opacity: 0.5;
+    }
+
+    86.1% {
+        opacity: 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+        opacity: 0;
+    }
+}
+
+@keyframes v-glitch-move {
+    0% {
+        background-position: 0 0%;
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 0;
+    }
+
+    20.1% {
+        opacity: 0.6;
+    }
+
+    24% {
+        opacity: 0.6;
+    }
+
+    24.1% {
+        opacity: 0;
+    }
+
+    40% {
+        background-position: 0 -20%;
+        opacity: 0;
+    }
+
+    42% {
+        opacity: 0;
+    }
+
+    42.1% {
+        opacity: 0.5;
+    }
+
+    44% {
+        opacity: 0.5;
+    }
+
+    44.1% {
+        opacity: 0;
+    }
+
+    55% {
+        opacity: 0;
+    }
+
+    55.1% {
+        opacity: 0.45;
+    }
+
+    60% {
+        opacity: 0.45;
+    }
+
+    60.1% {
+        opacity: 0;
+    }
+
+    80% {
+        background-position: 0 -70%;
+        opacity: 0;
+    }
+
+    80.1% {
+        opacity: 0.5;
+    }
+
+    85% {
+        opacity: 0.5;
+    }
+
+    85.1% {
+        opacity: 0;
+    }
+
+    100% {
+        background-position: 0 -200%;
+        opacity: 0;
+    }
+}
+
+@keyframes pulse-subtle {
+    0% {
+        opacity: 0.5;
+        filter: blur(30px);
+    }
+
+    50% {
+        opacity: 0.9;
+        filter: blur(40px);
+    }
+
+    100% {
+        opacity: 0.5;
+        filter: blur(30px);
+    }
+}
+
+@keyframes tracking {
+    0% {
+        background-position: 0 0;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0;
+    }
+
+    10.1% {
+        opacity: 0.35;
+    }
+
+    12% {
+        opacity: 0.35;
+    }
+
+    12.1% {
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 0;
+    }
+
+    30.1% {
+        opacity: 0.45;
+    }
+
+    35% {
+        opacity: 0.45;
+    }
+
+    35.1% {
+        opacity: 0;
+    }
+
+    60% {
+        opacity: 0;
+    }
+
+    60.1% {
+        opacity: 0.4;
+    }
+
+    65% {
+        opacity: 0.4;
+    }
+
+    65.1% {
+        opacity: 0;
+    }
+
+    80% {
+        opacity: 0;
+    }
+
+    80.1% {
+        opacity: 0.3;
+    }
+
+    85% {
+        opacity: 0.3;
+    }
+
+    85.1% {
+        opacity: 0;
+    }
+
+    100% {
+        background-position: 0 150px;
+        opacity: 0;
+    }
+}
+
+@keyframes digital-distortion {
+    0% {
+        opacity: 0.5;
+        transform: translateX(0);
+    }
+
+    25% {
+        opacity: 0.65;
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: translateX(-2px);
+    }
+
+    75% {
+        opacity: 0.7;
+    }
+
+    85% {
+        transform: translateX(3px);
+    }
+
+    100% {
+        opacity: 0.5;
+        transform: translateX(0);
+    }
+}
+
+@keyframes floating {
+    0% {
+        transform: translateY(0) translateX(0);
+    }
+
+    25% {
+        transform: translateY(-10px) translateX(5px);
+    }
+
+    50% {
+        transform: translateY(-5px) translateX(10px);
+    }
+
+    75% {
+        transform: translateY(-8px) translateX(-5px);
+    }
+
+    100% {
+        transform: translateY(0) translateX(0);
     }
 }
 /* Responsive styles - General Mobile */
@@ -654,10 +1096,6 @@
     .hero {
         @apply p-8;
         background-position: 78% center;
-    }
-
-    .glitch-title h1 {
-        @apply text-4xl tracking-tight;
     }
 
     .hero-content p {
@@ -736,10 +1174,6 @@
 
     .album-artwork {
         @apply w-[300px] h-[300px];
-    }
-
-    .glitch-title h1 {
-        @apply text-3xl tracking-normal;
     }
 
     .hero-content p {
@@ -871,4 +1305,4 @@ body.menu-open {
         background-position: 75% center;
     }
 }
-
+}
