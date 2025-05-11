@@ -1,7 +1,9 @@
 // Glitch effects for the title
 document.addEventListener("DOMContentLoaded", function () {
   // Target elements
-  const glitchTitle = document.querySelector(".glitch-title h1");
+  const glitchTitle = document.querySelector(
+    ".hero-glitch-title h1, .glitch-title h1"
+  );
   const highlightText = document.querySelector(".highlight");
 
   if (!glitchTitle || !highlightText) return;

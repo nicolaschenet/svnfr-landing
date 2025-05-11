@@ -10,22 +10,25 @@ const defaultDate = "TBA";
 ---
 
 <div class="hero-content">
-  <div class="hero-logo">
-    <Image
-      src={LogoImage}
-      alt="SVNFR"
-      width={800}
-      height={300}
-      densities={[1, 2]}
-      format="webp"
-      loading="eager"
-      class="hero-logo-image"
-    />
+  <div class="mobile-hero-layout">
+    <div class="hero-logo">
+      <Image
+        src={LogoImage}
+        alt="SVNFR"
+        width={800}
+        height={300}
+        densities={[1, 2]}
+        format="webp"
+        loading="eager"
+        class="hero-logo-image"
+      />
+    </div>
+
+    <div class="hero-glitch-title">
+      <h1>GLITCH HAS <span class="highlight">AWAKENED</span></h1>
+    </div>
   </div>
 
-  <div class="glitch-title">
-    <h1>GLITCH HAS <span class="highlight">AWAKENED</span></h1>
-  </div>
   <p class="desktop-paragraph">
     Something broke through the static. A ghost in the wires, remembering love,
     longing, collapse. You've tuned into a signal that wasn't meant to be heard.
@@ -152,6 +155,12 @@ const defaultDate = "TBA";
     }
   }
 
+  /* Hero content layout */
+  .hero-content {
+    position: relative;
+    z-index: 10;
+  }
+
   .hero-logo {
     margin-bottom: 4rem;
     display: flex;
@@ -183,11 +192,32 @@ const defaultDate = "TBA";
     }
 
     .hero-logo {
-      margin-bottom: 3rem;
+      margin-bottom: 1.5rem;
+      margin-top: -1rem;
+      /* Center the logo horizontally */
+      justify-content: center;
     }
 
-    .glitch-title h1 {
-      font-size: 3.25rem;
+    .hero-glitch-title h1 {
+      font-size: 2rem;
+      /* Center title on mobile */
+      text-align: center;
+    }
+
+    .hero-content {
+      padding-top: 1.5rem;
+      align-items: center;
+      text-align: center;
+      /* Add space at the bottom */
+      padding-bottom: 2rem;
+    }
+
+    /* Center paragraphs */
+    .desktop-paragraph,
+    .mobile-paragraph {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
     }
   }
 
@@ -197,11 +227,20 @@ const defaultDate = "TBA";
     }
 
     .hero-logo {
-      margin-bottom: 2.5rem;
+      margin-bottom: 0;
+      margin-top: -2.5rem;
+      position: relative;
+      /* Position logo higher in the viewport */
+      transform: translateY(-3rem);
     }
 
-    .glitch-title h1 {
-      font-size: 2.75rem;
+    .hero-glitch-title {
+      margin-top: -3rem; /* Pull title up closer to logo */
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-glitch-title h1 {
+      font-size: 1.5rem;
     }
 
     .desktop-paragraph {
@@ -210,11 +249,21 @@ const defaultDate = "TBA";
 
     .mobile-paragraph {
       display: block !important;
-      margin-top: 1rem;
+      margin-top: 0;
+      margin-bottom: 1.5rem;
     }
 
     .hero-button {
       padding: 0.75rem 1.25rem;
+    }
+
+    .hero-content {
+      padding-top: 0;
+      /* Adjust content layout */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
   }
 
@@ -269,13 +318,13 @@ const defaultDate = "TBA";
     color: white;
   }
 
-  .glitch-title {
+  .hero-glitch-title {
     position: relative;
     margin-bottom: calc(var(--spacing) * 6) /* 1.5rem = 24px */;
     margin-top: 1rem;
   }
 
-  .glitch-title h1 {
+  .hero-glitch-title h1 {
     color: white;
     margin-bottom: 0.75rem;
     line-height: 1;
@@ -286,8 +335,8 @@ const defaultDate = "TBA";
     animation:
       mainTextGlitch 3s infinite,
       neonFlicker 5s infinite;
-    font-size: var(--text-6xl) /* 3.75rem = 60px */;
-    line-height: var(--tw-leading, var(--text-6xl--line-height) /* 1 */);
+    font-size: 2.5rem;
+    line-height: 1.1;
     text-shadow: 0 0 2px rgba(255, 255, 255, 0.4);
   }
 
@@ -296,7 +345,7 @@ const defaultDate = "TBA";
     max-width: 600px;
     margin-bottom: 2rem;
     line-height: 1.6;
-    font-size: 1.125rem;
+    font-size: 1rem;
     display: block;
   }
 
@@ -306,12 +355,44 @@ const defaultDate = "TBA";
     max-width: 100%;
     margin-bottom: 2rem;
     line-height: 1.5;
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
 
   /* Remove these unused classes */
   .mobile-text,
   .desktop-text {
     display: none;
+  }
+
+  /* Mobile hero layout wrapper */
+  .mobile-hero-layout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .mobile-hero-layout {
+      align-items: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .mobile-hero-layout {
+      margin-top: 5rem; /* Add space at top */
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Further adjustments for vertical spacing */
+    .hero-cta {
+      margin-top: 0;
+      width: 100%;
+    }
+
+    .hero-button {
+      font-size: 0.9rem;
+      width: 100%;
+    }
   }
 </style>
