@@ -1,6 +1,10 @@
 ---
 // Hero Section component
-import { featuredRelease } from "../data/releases.js";
+import { featuredRelease } from "../data/releases.ts";
+
+// Set default values if featuredRelease is undefined
+const defaultTitle = "COMING SOON";
+const defaultDate = "TBA";
 ---
 
 <div class="hero-content">
@@ -20,15 +24,17 @@ import { featuredRelease } from "../data/releases.js";
   <div class="hero-cta">
     <a href="#music" class="hero-button">
       {
-        featuredRelease.released ? (
+        featuredRelease?.released ? (
           <span class="desktop-text">OUT NOW — {featuredRelease.title}</span>
         ) : (
-          <span class="desktop-text">PRE-SAVE — {featuredRelease.title}</span>
+          <span class="desktop-text">
+            PRE-SAVE — {featuredRelease?.title || defaultTitle}
+          </span>
         )
       }
       <span class="mobile-text">
-        {featuredRelease.released ? "OUT NOW" : "PRE-SAVE"} — {
-          featuredRelease.title
+        {featuredRelease?.released ? "OUT NOW" : "PRE-SAVE"} — {
+          featuredRelease?.title || defaultTitle
         }
       </span>
       <i class="fa-solid fa-chevron-down"></i>
@@ -36,7 +42,7 @@ import { featuredRelease } from "../data/releases.js";
   </div>
 
   {
-    featuredRelease.released && (
+    featuredRelease?.released && featuredRelease?.links && (
       <div class="platform-shortcuts pb-8">
         <a
           href={featuredRelease.links.spotify}
@@ -74,7 +80,7 @@ import { featuredRelease } from "../data/releases.js";
     )
   }
   {
-    !featuredRelease.released ? (
+    featuredRelease && !featuredRelease.released ? (
       <div class="release-date">
         <div class="date">RELEASING</div>
         <div class="date-label">
