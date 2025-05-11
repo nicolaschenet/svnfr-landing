@@ -1,5 +1,7 @@
 ---
 // Hero Section component
+import { Image } from "astro:assets";
+import LogoImage from "../images/svnfr-logo.png";
 import { featuredRelease } from "../data/releases.ts";
 
 // Set default values if featuredRelease is undefined
@@ -8,15 +10,28 @@ const defaultDate = "TBA";
 ---
 
 <div class="hero-content">
+  <div class="hero-logo">
+    <Image
+      src={LogoImage}
+      alt="SVNFR"
+      width={800}
+      height={300}
+      densities={[1, 2]}
+      format="webp"
+      loading="eager"
+      class="hero-logo-image"
+    />
+  </div>
+
   <div class="glitch-title">
     <h1>GLITCH HAS <span class="highlight">AWAKENED</span></h1>
   </div>
-  <p class="desktop-text">
+  <p class="desktop-paragraph">
     Something broke through the static. A ghost in the wires, remembering love,
     longing, collapse. You've tuned into a signal that wasn't meant to be heard.
     But now that you have... it won't let go.
   </p>
-  <p class="mobile-text">
+  <p class="mobile-paragraph">
     A ghost in the wires. You've tuned into a signal that wasn't meant to be
     heard.
   </p>
@@ -25,18 +40,11 @@ const defaultDate = "TBA";
     <a href="#music" class="hero-button">
       {
         featuredRelease?.released ? (
-          <span class="desktop-text">OUT NOW — {featuredRelease.title}</span>
+          <span>OUT NOW — {featuredRelease.title}</span>
         ) : (
-          <span class="desktop-text">
-            PRE-SAVE — {featuredRelease?.title || defaultTitle}
-          </span>
+          <span>PRE-SAVE — {featuredRelease?.title || defaultTitle}</span>
         )
       }
-      <span class="mobile-text">
-        {featuredRelease?.released ? "OUT NOW" : "PRE-SAVE"} — {
-          featuredRelease?.title || defaultTitle
-        }
-      </span>
       <i class="fa-solid fa-chevron-down"></i>
     </a>
   </div>
@@ -134,5 +142,176 @@ const defaultDate = "TBA";
       height: 2rem;
       font-size: 1rem;
     }
+
+    .desktop-paragraph {
+      display: none !important;
+    }
+
+    .mobile-paragraph {
+      display: block !important;
+    }
+  }
+
+  .hero-logo {
+    margin-bottom: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .hero-logo-image {
+    width: 400px;
+    height: auto;
+    filter: brightness(1.2) drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));
+    animation: logo-glow 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes logo-glow {
+    from {
+      filter: brightness(1.2) drop-shadow(0 0 12px rgba(255, 255, 255, 0.15));
+      transform: scale(1);
+    }
+    to {
+      filter: brightness(1.35) drop-shadow(0 0 20px rgba(255, 255, 255, 0.35));
+      transform: scale(1.02);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-logo-image {
+      width: 320px;
+    }
+
+    .hero-logo {
+      margin-bottom: 3rem;
+    }
+
+    .glitch-title h1 {
+      font-size: 3.25rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-logo-image {
+      width: 260px;
+    }
+
+    .hero-logo {
+      margin-bottom: 2.5rem;
+    }
+
+    .glitch-title h1 {
+      font-size: 2.75rem;
+    }
+
+    .desktop-paragraph {
+      display: none !important;
+    }
+
+    .mobile-paragraph {
+      display: block !important;
+      margin-top: 1rem;
+    }
+
+    .hero-button {
+      padding: 0.75rem 1.25rem;
+    }
+  }
+
+  /* Mobile text styling */
+  .text-paragraph {
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    font-size: 1.125rem;
+  }
+
+  /* Hero button styling */
+  .hero-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-radius: 0.375rem;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+  }
+
+  .hero-button:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+  }
+
+  .hero-cta {
+    margin-top: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Release date styling */
+  .release-date {
+    margin-top: 1.5rem;
+  }
+
+  .date {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .date-label {
+    font-family: "IBM Plex Mono", monospace;
+    letter-spacing: 0.05em;
+    color: white;
+  }
+
+  .glitch-title {
+    position: relative;
+    margin-bottom: calc(var(--spacing) * 6) /* 1.5rem = 24px */;
+    margin-top: 1rem;
+  }
+
+  .glitch-title h1 {
+    color: white;
+    margin-bottom: 0.75rem;
+    line-height: 1;
+    font-weight: 300;
+    letter-spacing: -0.025em;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    animation:
+      mainTextGlitch 3s infinite,
+      neonFlicker 5s infinite;
+    font-size: var(--text-6xl) /* 3.75rem = 60px */;
+    line-height: var(--tw-leading, var(--text-6xl--line-height) /* 1 */);
+    text-shadow: 0 0 2px rgba(255, 255, 255, 0.4);
+  }
+
+  .desktop-paragraph {
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    font-size: 1.125rem;
+    display: block;
+  }
+
+  .mobile-paragraph {
+    display: none;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 100%;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+    font-size: 0.95rem;
+  }
+
+  /* Remove these unused classes */
+  .mobile-text,
+  .desktop-text {
+    display: none;
   }
 </style>
