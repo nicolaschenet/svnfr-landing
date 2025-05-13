@@ -1,9 +1,15 @@
 ---
 // Navbar component
+import { Image } from "astro:assets";
+import logo from "../images/svnfr-logo.png";
 ---
 
-<nav class="top-nav">
-  <div class="logo"><a href="#" class="logo-link">SVNFR</a></div>
+<nav class="top-nav height-40">
+  <div class="logo hidden-logo">
+    <a href="#" class="logo-link">
+      <Image src={logo} alt="SVNFR" height={40} densities={[1, 2]} />
+    </a>
+  </div>
   <button class="mobile-toggle" aria-label="Toggle navigation">
     <i class="fa-solid fa-bars"></i>
   </button>
@@ -55,3 +61,16 @@
     </ul>
   </div>
 </nav>
+
+<style>
+  .logo {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .hidden-logo {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+</style>

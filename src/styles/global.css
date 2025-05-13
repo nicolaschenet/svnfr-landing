@@ -229,7 +229,7 @@
     }
 
     .glitch-title h1 {
-        @apply text-6xl text-white mb-3 leading-none font-light tracking-tight uppercase font-sans;
+        @apply text-4xl text-white mb-3 leading-none font-light tracking-tight uppercase font-sans;
         animation: mainTextGlitch 3s infinite, neonFlicker 5s infinite;
         text-shadow: 0 0 2px rgba(255, 255, 255, 0.4);
     }
@@ -243,7 +243,7 @@
 
     .highlight::before,
     .highlight::after {
-        content: "AWAKENED";
+        content: "CONFIRMED";
         @apply absolute top-0 left-0 w-full h-full opacity-80 pointer-events-none;
         mix-blend-mode: screen;
     }
@@ -296,12 +296,12 @@
 
     /* Section styles */
     .section {
-        @apply py-24 px-8 max-w-[900px] mx-auto relative z-5;
+        @apply py-10 px-8 max-w-[900px] mx-auto relative z-5;
         word-break: break-word;
     }
 
     .section h2 {
-        @apply text-5xl font-light text-highlight mb-10 tracking-wider uppercase;
+        @apply text-4xl font-light text-highlight mb-10 tracking-wider uppercase;
             position: relative;
         }
 
@@ -634,7 +634,7 @@
     }
 
     .mobile-toggle {
-        @apply flex items-center justify-center absolute right-8 top-4;
+        @apply flex items-center justify-center mr-4;
     }
 
     .nav-container.active {
