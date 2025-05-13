@@ -296,7 +296,7 @@
 
     /* Section styles */
     .section {
-        @apply py-24 px-8 max-w-[900px] mx-auto relative z-5;
+        @apply py-10 px-8 max-w-[900px] mx-auto relative z-5;
         word-break: break-word;
     }
 
