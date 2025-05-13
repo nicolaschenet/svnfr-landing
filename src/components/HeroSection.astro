@@ -1,8 +1,13 @@
 ---
 // Hero Section component
 import { featuredRelease } from "../data/releases.js";
+import { Image } from "astro:assets";
+import logo from "../images/svnfr-logo.png";
 ---
 
+<div class="logo">
+  <Image src={logo} alt="SVNFR" width={400} densities={[1, 2]} />
+</div>
 <div class="hero-content">
   <div class="glitch-title">
     <h1>GLITCH HAS <span class="highlight">AWAKENED</span></h1>
@@ -20,15 +25,15 @@ import { featuredRelease } from "../data/releases.js";
   <div class="hero-cta">
     <a href="#music" class="hero-button">
       {
-        featuredRelease.released ? (
-          <span class="desktop-text">OUT NOW — {featuredRelease.title}</span>
+        featuredRelease?.released ? (
+          <span class="desktop-text">OUT NOW — {featuredRelease?.title}</span>
         ) : (
-          <span class="desktop-text">PRE-SAVE — {featuredRelease.title}</span>
+          <span class="desktop-text">PRE-SAVE — {featuredRelease?.title}</span>
         )
       }
       <span class="mobile-text">
-        {featuredRelease.released ? "OUT NOW" : "PRE-SAVE"} — {
-          featuredRelease.title
+        {featuredRelease?.released ? "OUT NOW" : "PRE-SAVE"} — {
+          featuredRelease?.title
         }
       </span>
       <i class="fa-solid fa-chevron-down"></i>
@@ -36,10 +41,10 @@ import { featuredRelease } from "../data/releases.js";
   </div>
 
   {
-    featuredRelease.released && (
+    featuredRelease?.released && (
       <div class="platform-shortcuts pb-8">
         <a
-          href={featuredRelease.links.spotify}
+          href={featuredRelease?.links?.spotify}
           target="_blank"
           class="platform-icon"
           aria-label="Listen on Spotify"
@@ -47,7 +52,7 @@ import { featuredRelease } from "../data/releases.js";
           <i class="fa-brands fa-spotify" />
         </a>
         <a
-          href={featuredRelease.links.appleMusic}
+          href={featuredRelease?.links?.appleMusic}
           target="_blank"
           class="platform-icon"
           aria-label="Listen on Apple Music"
@@ -55,7 +60,7 @@ import { featuredRelease } from "../data/releases.js";
           <i class="fa-brands fa-apple" />
         </a>
         <a
-          href={featuredRelease.links.bandcamp}
+          href={featuredRelease?.links?.bandcamp}
           target="_blank"
           class="platform-icon"
           aria-label="Buy on Bandcamp"
@@ -63,7 +68,7 @@ import { featuredRelease } from "../data/releases.js";
           <i class="fa-brands fa-bandcamp" />
         </a>
         <a
-          href={featuredRelease.links.hyperfollow}
+          href={featuredRelease?.links?.hyperfollow}
           target="_blank"
           class="platform-icon"
           aria-label="More platforms"
@@ -74,11 +79,11 @@ import { featuredRelease } from "../data/releases.js";
     )
   }
   {
-    !featuredRelease.released ? (
+    !featuredRelease?.released ? (
       <div class="release-date">
         <div class="date">RELEASING</div>
         <div class="date-label">
-          {featuredRelease.releaseDate.toUpperCase()}
+          {featuredRelease?.releaseDate.toUpperCase()}
         </div>
       </div>
     ) : null
@@ -86,6 +91,12 @@ import { featuredRelease } from "../data/releases.js";
 </div>
 
 <style>
+  .logo {
+    position: absolute;
+    top: 10rem;
+    left: 3rem;
+  }
+
   .platform-shortcuts {
     display: flex;
     gap: 1.5rem;
@@ -119,6 +130,12 @@ import { featuredRelease } from "../data/releases.js";
   }
 
   @media (max-width: 640px) {
+    .logo {
+      width: 200px;
+      top: 8rem;
+      left: 1.5rem;
+    }
+
     .platform-shortcuts {
       gap: 1rem;
     }

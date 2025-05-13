@@ -229,7 +229,7 @@
     }
 
     .glitch-title h1 {
-        @apply text-6xl text-white mb-3 leading-none font-light tracking-tight uppercase font-sans;
+        @apply text-4xl text-white mb-3 leading-none font-light tracking-tight uppercase font-sans;
         animation: mainTextGlitch 3s infinite, neonFlicker 5s infinite;
         text-shadow: 0 0 2px rgba(255, 255, 255, 0.4);
     }
@@ -634,7 +634,7 @@
     }
 
     .mobile-toggle {
-        @apply flex items-center justify-center absolute right-8 top-4;
+        @apply flex items-center justify-center mr-4;
     }
 
     .nav-container.active {
