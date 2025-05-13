@@ -77,6 +77,53 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Handle navbar logo visibility on scroll
+  const navbarLogo = document.querySelector(".top-nav .logo");
+  const heroLogo = document.querySelector(".hero .logo");
+
+  function handleScroll() {
+    if (!navbarLogo || !heroLogo) return;
+
+    const heroLogoRect = heroLogo.getBoundingClientRect();
+    const scrollPosition = window.scrollY;
+
+    // Check if hero logo is still in view
+    if (heroLogoRect.bottom <= 0) {
+      // Hero logo is not visible anymore, show navbar logo completely
+      navbarLogo.classList.remove("hidden-logo");
+    } else {
+      // Calculate the percentage of hero logo that's out of view
+      const heroLogoHeight = heroLogoRect.height;
+      const visibilityThreshold = 100; // When to start showing the navbar logo
+
+      if (scrollPosition > visibilityThreshold) {
+        // Start revealing the navbar logo gradually
+        const revealProgress = Math.min(1, (scrollPosition - visibilityThreshold) / heroLogoHeight);
+
+        // Apply custom styles for transition
+        navbarLogo.style.opacity = revealProgress;
+        navbarLogo.style.transform = `translateY(${(1 - revealProgress) * -10}px)`;
+
+        if (revealProgress >= 0.99) {
+          navbarLogo.classList.remove("hidden-logo");
+        } else {
+          navbarLogo.classList.add("hidden-logo");
+        }
+      } else {
+        // Keep navbar logo hidden when at the top
+        navbarLogo.classList.add("hidden-logo");
+        navbarLogo.style.opacity = 0;
+        navbarLogo.style.transform = "translateY(-10px)";
+      }
+    }
+  }
+
+  // Initialize on load
+  handleScroll();
+
+  // Add scroll event listener
+  window.addEventListener("scroll", handleScroll);
+
   // Handle window resize
   window.addEventListener("resize", function () {
     if (
@@ -87,5 +134,8 @@ document.addEventListener("DOMContentLoaded", function () {
       navContainer.classList.remove("active");
       document.body.classList.remove("menu-open");
     }
+
+    // Recalculate on resize
+    handleScroll();
   });
 });
