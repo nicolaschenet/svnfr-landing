@@ -1,9 +1,13 @@
 ---
 // About Section component
+import { Image } from "astro:assets";
+import logo from "../images/svnfr-logo.png";
 ---
 
 <section id="about" class="section">
-  <h2>About SVNFR</h2>
+  <h2 class="flex items-center gap-2">
+    About <div class="about-logo-wrapper"><Image src={logo} alt="SVNFR" height={50} densities={[1, 2]} class="about-logo" /></div>
+  </h2>
   <p>
     SVNFR is a synthwave transmission from the aftermath. A digital elegy
     stitched together from broken memories, corrupted code, and lingering echoes
@@ -41,5 +45,15 @@
     font-style: italic;
     color: rgba(255, 255, 255, 0.7);
     line-height: 1.7;
+  }
+
+  .about-logo-wrapper {
+    display: inline-block;
+    position: relative;
+  }
+
+  .about-logo {
+    position: relative;
+    transition: filter 0.1s ease;
   }
 </style>
