@@ -301,7 +301,7 @@
     }
 
     .section h2 {
-        @apply text-5xl font-light text-highlight mb-10 tracking-wider uppercase;
+        @apply text-4xl font-light text-highlight mb-10 tracking-wider uppercase;
             position: relative;
         }
 
