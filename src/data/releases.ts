@@ -43,7 +43,7 @@ export const releases: ReleasesCollection = {
   },
   heartError: {
     title: "Heart Error — EP",
-    releaseDate: "June 14th, 2025",
+    releaseDate: "June - July 2025",
     released: false,
     featured: false,
     description:
