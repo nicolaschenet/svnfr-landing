@@ -60,9 +60,9 @@
     .hero {
         @apply h-screen relative flex flex-col justify-end p-16 overflow-hidden;
         background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 70%, var(--color-dark) 100%),
-            url('/assets/glitch-header.png');
+            url('/assets/cassette-header.png');
         background-size: cover;
-        background-position: 65% center;
+        background-position: center;
     }
 
     /* Particles container */
@@ -243,7 +243,7 @@
 
     .highlight::before,
     .highlight::after {
-        content: "CONFIRMED";
+        content: "ACTIVE";
         @apply absolute top-0 left-0 w-full h-full opacity-80 pointer-events-none;
         mix-blend-mode: screen;
     }
@@ -653,7 +653,7 @@
 
     .hero {
         @apply p-8;
-        background-position: 78% center;
+        background-position: center;
     }
 
     .glitch-title h1 {
@@ -719,7 +719,7 @@
 /* Small Mobile Devices */
 @media (max-width: 430px) {
     .header.hero {
-        background-position: 83% center;
+        background-position: center;
     }
 
     .section h2 {
@@ -784,7 +784,7 @@
 /* Extra Small Mobile Devices */
 @media (max-width: 375px) {
     .header.hero {
-        background-position: 87% center;
+        background-position: center;
     }
 
     .album-artwork {
