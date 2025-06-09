@@ -27,7 +27,7 @@ export const releases: ReleasesCollection = {
     title: "King of Nothing — EP",
     releaseDate: "May 5th, 2025",
     released: true,
-    featured: true,
+    featured: false,
     description:
       '"King of Nothing" is the emotional core of SINGVLARITY — a cinematic collapse rendered in slow synthwave. Glitchy textures, haunted melodies, and aching loops. A love letter delivered after the end of the world.',
     coverArt: kingOfNothingCoverArt,
@@ -43,9 +43,9 @@ export const releases: ReleasesCollection = {
   },
   heartError: {
     title: "Heart Error — EP",
-    releaseDate: "June - July 2025",
+    releaseDate: "June 27th, 2025",
     released: false,
-    featured: false,
+    featured: true,
     description:
       `[ system_log > svnfr://transmissions/HEART_ERROR.corrupt ]
 
@@ -81,15 +81,15 @@ export const releases: ReleasesCollection = {
 
 ...END_OF_FRAGMENT...`,
     coverArt: heartErrorCoverArt,
-    accentColor: "#ffffff",
-    // links: {
-    //   hyperfollow: "https://distrokid.com/hyperfollow/svnfr/king-of-nothing-ep",
-    //   spotify:
-    //     "https://open.spotify.com/album/6QvuF7MqMQjDOfiQswovo2?si=s_duEkS_Q0G9Qgp7ENfbnQ",
-    //   appleMusic:
-    //     "https://music.apple.com/us/album/king-of-nothing-ep-single/1811316528",
-    //   bandcamp: "https://svnfr.bandcamp.com/album/king-of-nothing-ep",
-    // },
+    accentColor: "#a04695",
+    links: {
+      hyperfollow: "https://music.svnfr.com/n3vxkrq",
+      // spotify:
+      //   "https://open.spotify.com/album/6QvuF7MqMQjDOfiQswovo2?si=s_duEkS_Q0G9Qgp7ENfbnQ",
+      // appleMusic:
+      //   "https://music.apple.com/us/album/king-of-nothing-ep-single/1811316528",
+      // bandcamp: "https://svnfr.bandcamp.com/album/king-of-nothing-ep",
+    },
   },
 };
 
