@@ -83,7 +83,7 @@ export const releases: ReleasesCollection = {
     coverArt: heartErrorCoverArt,
     accentColor: "#a04695",
     links: {
-      hyperfollow: "https://music.svnfr.com/n3vxkrq",
+      hyperfollow: "https://ffm.to/heart-error",
       // spotify:
       //   "https://open.spotify.com/album/6QvuF7MqMQjDOfiQswovo2?si=s_duEkS_Q0G9Qgp7ENfbnQ",
       // appleMusic:
