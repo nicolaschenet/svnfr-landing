@@ -88,7 +88,7 @@ export const releases: ReleasesCollection = {
       //   "https://open.spotify.com/album/6QvuF7MqMQjDOfiQswovo2?si=s_duEkS_Q0G9Qgp7ENfbnQ",
       // appleMusic:
       //   "https://music.apple.com/us/album/king-of-nothing-ep-single/1811316528",
-      // bandcamp: "https://svnfr.bandcamp.com/album/king-of-nothing-ep",
+      bandcamp: "https://svnfr.bandcamp.com/album/heart-error",
     },
   },
 };
