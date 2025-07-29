@@ -174,11 +174,9 @@ const lightAccentTint = getLightAccentTint(
               </div>
             )}
 
-            {featuredRelease.description
-              .split("\n\n")
-              .map((paragraph: string) => (
-                <p>{paragraph}</p>
-              ))}
+            <div class="description whitespace-pre-line leading-relaxed text-white/90">
+              {featuredRelease.description}
+            </div>
 
             {featuredRelease.released && featuredRelease.links?.spotify && (
               <div class="spotify-embed mt-6">
@@ -267,9 +265,7 @@ const lightAccentTint = getLightAccentTint(
                   </div>
 
                   <div class="description space-y-4 text-base whitespace-pre-line leading-relaxed text-white/90 mb-6">
-                    {release.description.split("\n\n").map((paragraph) => (
-                      <p>{paragraph}</p>
-                    ))}
+                    {release.description}
                   </div>
 
                   {release.released && release.links && (

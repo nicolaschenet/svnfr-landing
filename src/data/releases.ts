@@ -1,6 +1,7 @@
 // Music releases data
 import kingOfNothingCoverArt from "../images/king-of-nothing-cover-art.png";
 import heartErrorCoverArt from "../images/heart-error-cover-art.png";
+import postHumanDreamCoverArt from "../images/post-human-dream-cover-art.jpg";
 
 export interface Release {
   title: string;
@@ -44,8 +45,8 @@ export const releases: ReleasesCollection = {
   heartError: {
     title: "Heart Error — EP",
     releaseDate: "June 27th, 2025",
-    released: false,
-    featured: true,
+    released: true,
+    featured: false,
     description:
       `[ system_log > svnfr://transmissions/HEART_ERROR.corrupt ]
 
@@ -84,11 +85,50 @@ export const releases: ReleasesCollection = {
     accentColor: "#a04695",
     links: {
       hyperfollow: "https://ffm.to/heart-error",
-      // spotify:
-      //   "https://open.spotify.com/album/6QvuF7MqMQjDOfiQswovo2?si=s_duEkS_Q0G9Qgp7ENfbnQ",
-      // appleMusic:
-      //   "https://music.apple.com/us/album/king-of-nothing-ep-single/1811316528",
+      spotify:
+        "https://open.spotify.com/album/7w0WBlae3ygs62IZMnYRQq?si=4_OH1t0rQ1KBpJ3EBXh0tg",
+      appleMusic:
+        "https://music.apple.com/us/album/heart-error-single/1819584662",
       bandcamp: "https://svnfr.bandcamp.com/album/heart-error",
+    },
+  },
+  postHumanDream: {
+    title: "Post Human Dream",
+    releaseDate: "August 15th, 2025",
+    released: false,
+    featured: true,
+    description: `:: status: UPLINK STABILIZED
+:: emotional continuity: partial
+:: memory construct: active
+:: sequence_index: 11/12
+
+█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+
+> 11_▶ post_human_dream
+dreamstate initiated_
+light percussion present [pulse: slow / ghosted]
+signal tone: ambient / drifting / unresolved
+[emotional field: fading but intact]
+
+↳ synthetic memory loop engaged
+↳ background process: low-frequency longing
+↳ AI construct reports: “I was never meant to feel this”
+
+█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+
+:: NOTICE: this file is stable
+:: emotional compression detected
+:: recommended protocol: isolate + absorb
+:: archive tag: [acceptance/exit]`,
+    coverArt: postHumanDreamCoverArt,
+    accentColor: "#a04695",
+    links: {
+      hyperfollow: "https://ffm.to/post-human-dream",
+      // spotify:
+      //   "https://open.spotify.com/album/7w0WBlae3ygs62IZMnYRQq?si=4_OH1t0rQ1KBpJ3EBXh0tg",
+      // appleMusic:
+      //   "https://music.apple.com/us/album/post-human-dream/1819584662",
+      // bandcamp: "https://svnfr.bandcamp.com/album/post-human-dream",
     },
   },
 };
