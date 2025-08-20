@@ -95,7 +95,7 @@ export const releases: ReleasesCollection = {
   postHumanDream: {
     title: "Post Human Dream",
     releaseDate: "August 15th, 2025",
-    released: false,
+    released: true,
     featured: true,
     description: `:: status: UPLINK STABILIZED
 :: emotional continuity: partial
@@ -124,11 +124,11 @@ signal tone: ambient / drifting / unresolved
     accentColor: "#a04695",
     links: {
       hyperfollow: "https://ffm.to/post-human-dream",
-      // spotify:
-      //   "https://open.spotify.com/album/7w0WBlae3ygs62IZMnYRQq?si=4_OH1t0rQ1KBpJ3EBXh0tg",
-      // appleMusic:
-      //   "https://music.apple.com/us/album/post-human-dream/1819584662",
-      // bandcamp: "https://svnfr.bandcamp.com/album/post-human-dream",
+      spotify:
+        "https://open.spotify.com/album/4nRo1vDDofzULSTfJBID9w",
+      appleMusic:
+        "https://music.apple.com/us/album/post-human-dream/1829180669",
+      bandcamp: "https://svnfr.bandcamp.com/track/post-human-dream-2",
     },
   },
 };
