@@ -2,6 +2,7 @@
 import kingOfNothingCoverArt from "../images/king-of-nothing-cover-art.png";
 import heartErrorCoverArt from "../images/heart-error-cover-art.png";
 import postHumanDreamCoverArt from "../images/post-human-dream-cover-art.jpg";
+import memoryFragment87CoverArt from "../images/memory-fragment-87-cover-art.jpg";
 
 export interface Release {
   title: string;
@@ -96,7 +97,7 @@ export const releases: ReleasesCollection = {
     title: "Post Human Dream",
     releaseDate: "August 15th, 2025",
     released: true,
-    featured: true,
+    featured: false,
     description: `:: status: UPLINK STABILIZED
 :: emotional continuity: partial
 :: memory construct: active
@@ -129,6 +130,55 @@ signal tone: ambient / drifting / unresolved
       appleMusic:
         "https://music.apple.com/us/album/post-human-dream/1829180669",
       bandcamp: "https://svnfr.bandcamp.com/track/post-human-dream-2",
+    },
+  },
+  memoryFragment87: {
+    title: "Memory Fragment 87 — EP",
+    releaseDate: "October 17th, 2025",
+    released: true,
+    featured: true,
+    description: `:: status: MEMORY LEAK DETECTED
+:: fragment_index: 87/???
+:: integrity: COMPROMISED
+:: access_level: RESTRICTED → PUBLIC
+
+█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+
+> 01_▶ memory_fragment_87
+    The central track — a modern reflection on 80s emotion through synthwave.
+    Lush, cinematic, and nostalgic, it anchors the entire project.
+    
+> 02_▶ memory_fragment_87_77_funk_broadcast
+    A reimagining of the melody through the grooves of the late 70s.
+    Funk rhythms meet a faint glimmer of early electronic experimentation.
+    
+> 03_▶ memory_fragment_87_84_sax_signal
+    A smooth and cinematic journey through 80s soundscapes.
+    Sax leads and shimmering synths capture the warmth of analog nostalgia.
+    
+> 04_▶ memory_fragment_87_93_dream_echo
+    A luminous rework inspired by early 90s "Dream" trance.
+    Euphoric and ethereal — the memory reborn in motion and light.
+    
+> 05_▶ memory_fragment_87_96_bristol_trace
+    A trip-hop interpretation marked by vinyl dust, broken rhythm, and reflection.
+    The memory slows down, dissolving into haze.
+
+█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+
+:: WARNING: temporal echoes detected across decades
+:: emotional residue: HIGH
+:: one memory, five manifestations
+:: the fragment remembers what it used to be
+
+...LEAK_STABILIZED...`,
+    coverArt: memoryFragment87CoverArt,
+    accentColor: "#7c3aed",
+    links: {
+      hyperfollow: "https://music.svnfr.com/memory-fragment-87",
+      spotify: "https://open.spotify.com/album/[SPOTIFY_ID]",
+      appleMusic: "https://music.apple.com/album/[APPLE_MUSIC_ID]",
+      bandcamp: "https://svnfr.bandcamp.com/album/memory-fragment-87",
     },
   },
 };
