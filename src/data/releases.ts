@@ -176,8 +176,8 @@ signal tone: ambient / drifting / unresolved
     accentColor: "#7c3aed",
     links: {
       hyperfollow: "https://music.svnfr.com/memory-fragment-87",
-      spotify: "https://open.spotify.com/album/[SPOTIFY_ID]",
-      appleMusic: "https://music.apple.com/album/[APPLE_MUSIC_ID]",
+      spotify: "https://open.spotify.com/album/6rWCkkInxl5AVZ69WJMvqW",
+      appleMusic: "https://music.apple.com/us/album/memory-fragment-87-ep/1844786012",
       bandcamp: "https://svnfr.bandcamp.com/album/memory-fragment-87",
     },
   },
